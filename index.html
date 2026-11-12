@@ -51,6 +51,20 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
 nav{display:flex;gap:24px;margin-left:auto;align-items:center;flex-wrap:wrap}
 nav a:not(.btn){text-decoration:none;font-weight:600;font-size:.95rem;color:var(--muted)}
 nav a:not(.btn):hover{color:var(--ink)}
+.lang{display:flex;gap:2px;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--bg)}
+.lang button{border:0;background:transparent;color:var(--muted);font:600 .8rem var(--font-body);padding:6px 10px;border-radius:999px;cursor:pointer;min-width:36px}
+.lang button:hover{color:var(--ink)}
+.lang button[aria-pressed="true"]{background:var(--red);color:#fff}
+html{scroll-padding-top:84px}
+.burger,.menu{display:none}
+.burger{border:1px solid var(--line);background:var(--bg);border-radius:10px;width:42px;height:38px;cursor:pointer;padding:0;place-content:center;gap:5px}
+.burger i{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s,opacity .2s}
+.burger[aria-expanded="true"] i:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger[aria-expanded="true"] i:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] i:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.menu a,.menu .tbtn{display:flex;align-items:center;gap:10px;min-height:52px;padding:0 4px;border:0;border-top:1px solid var(--line);background:transparent;color:var(--ink);text-decoration:none;font:700 1.3rem var(--font-display);text-transform:uppercase;letter-spacing:.02em;width:100%;text-align:left;cursor:pointer}
+.menu .tbtn{font:600 1rem var(--font-body);text-transform:none;color:var(--muted)}
+.menu .tbtn span{font-weight:600}
 .theme{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;width:38px;height:38px;cursor:pointer;display:grid;place-items:center;font-size:1rem}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;font:600 1rem var(--font-body);padding:14px 24px;border-radius:8px;background:var(--btn-bg);color:var(--btn-fg);text-decoration:none;transition:transform .15s,background .15s}
 .btn:hover{transform:translateY(-2px);background:#B8010E}
@@ -170,8 +184,11 @@ footer .inner{display:flex;gap:16px 32px;flex-wrap:wrap;justify-content:space-be
 footer a{color:var(--on-black)}
 
 /* whatsapp flutuante */
-.wa-float{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:25;background:#1FA855;color:#fff;border-radius:999px;padding:12px 18px;font-weight:600;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.25);display:flex;gap:8px;align-items:center}
-.wa-float:hover{background:#178A45}
+.wa-float{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:25;background:#138A43;color:#fff;border-radius:999px;min-height:58px;padding:0 24px 0 18px;font:700 1.05rem var(--font-body);text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.35),0 0 0 3px #fff;display:flex;gap:10px;align-items:center;transition:transform .15s,background .15s}
+.wa-float svg{width:28px;height:28px;flex:none}
+.wa-float::before{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:0 0 0 0 rgba(19,138,67,.6);animation:wapulse 2.2s ease-out infinite;pointer-events:none}
+.wa-float:hover{background:#0F7336;transform:translateY(-2px)}
+@keyframes wapulse{0%{box-shadow:0 0 0 0 rgba(19,138,67,.6)}70%,100%{box-shadow:0 0 0 18px rgba(19,138,67,0)}}
 
 @media (max-width:900px){
   .hero-card{grid-template-columns:minmax(0,1fr);min-height:0}
@@ -184,15 +201,30 @@ footer a{color:var(--on-black)}
   .q3{grid-template-columns:minmax(0,1fr);gap:28px}
   .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
   .detail{grid-template-columns:minmax(0,1fr)}
-  nav a.hide{display:none}
+  nav a.hide,nav .btn,nav .theme{display:none}
+  .burger{display:grid}
+  .menu{display:block;padding-bottom:10px}
+  .menu[hidden]{display:none}
+  .bar{flex-wrap:nowrap;gap:10px}
+  nav{gap:10px;flex-wrap:nowrap}
   section{padding-block:56px}
 }
+@media (max-width:700px){
+  svg.scope{min-width:0}
+  .scope-scroll{padding:22px 10px 4px}
+  .scope .lbl{display:none}
+  .scope .part .ring{stroke-width:6}
+  .scope .beam{stroke-width:8;stroke-dasharray:40 50}
+}
 @media (max-width:520px){
+  .brand img{height:30px}
+  .row{grid-template-columns:minmax(0,1fr)}
+  .row .tag{grid-column:1;justify-self:start}
   .steps{grid-template-columns:minmax(0,1fr)}
-  .wa-float span{display:none}
+  .wa-float{min-height:56px;padding:0 20px 0 16px}
 }
 @media (prefers-reduced-motion: reduce){
-  .scope .beam,.scope .glow,.ticker-track{animation:none}
+  .scope .beam,.scope .glow,.ticker-track,.wa-float::before{animation:none}
   .scope .tube-draw{animation:none;clip-path:none}
   .btn,summary::after{transition:none}
 }
@@ -210,8 +242,21 @@ footer a{color:var(--on-black)}
       <a class="hide" href="#faq">Dúvidas</a>
       <a class="hide" href="#orcamento">Contato</a>
       <a class="btn sm" href="#orcamento">Pedir orçamento</a>
+      <div class="lang" role="group" aria-label="Idioma">
+        <button type="button" data-l="pt" aria-label="Português" aria-pressed="true">PT</button>
+        <button type="button" data-l="en" aria-label="English" aria-pressed="false">EN</button>
+        <button type="button" data-l="de" aria-label="Deutsch" aria-pressed="false">DE</button>
+      </div>
       <button class="theme" id="theme" type="button" aria-label="Alternar tema claro e escuro">◐</button>
+      <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
     </nav>
+  </div>
+  <div class="inner menu" id="menu" hidden>
+    <a href="#endoscopio">Endoscópio</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#faq">Dúvidas</a>
+    <a href="#orcamento">Contato</a>
+    <button class="tbtn" type="button">◐ <span>Tema claro / escuro</span></button>
   </div>
 </header>
 
@@ -454,11 +499,141 @@ footer a{color:var(--on-black)}
 
 <a class="wa-float" href="https://wa.me/5516992237907" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.2 14.1c-.2.6-1.300 1.200-1.800 1.200-.5.1-1 .2-3.300-.7-2.800-1.100-4.600-4-4.700-4.200-.1-.2-1.100-1.500-1.100-2.800s.7-2 1-2.300c.2-.3.500-.3.700-.3h.5c.2 0 .4 0 .6.500l.8 2c.1.200.1.300 0 .5l-.3.500-.4.400c-.1.100-.3.300-.1.600.2.300.8 1.300 1.700 2.100 1.100 1 2.100 1.300 2.400 1.400.3.100.5.100.6-.1l.9-1.100c.2-.3.400-.2.600-.1l1.900.9c.3.100.5.200.5.300.1.100.1.700-.100 1.200Z"/></svg>
-  <span>WhatsApp</span>
+  <span>Falar no WhatsApp</span>
 </a>
 
 <script>
 (function(){
+  /* [português, inglês, alemão] */
+  var T=[
+    ["Endoscópio","Endoscope","Endoskop"],
+    ["Serviços","Services","Leistungen"],
+    ["Dúvidas","Questions","Fragen"],
+    ["Contato","Contact","Kontakt"],
+    ["Pedir orçamento","Request a quote","Angebot anfordern"],
+    ["Alternar tema claro e escuro","Switch between light and dark theme","Zwischen hellem und dunklem Design wechseln"],
+    ["Principal","Main","Hauptmenü"],
+    ["Idioma","Language","Sprache"],
+    ["Menu","Menu","Menü"],
+    ["Tema claro / escuro","Light / dark theme","Helles / dunkles Design"],
+    ["Prime Endoscope science vision, início","Prime Endoscope science vision, home","Prime Endoscope science vision, Startseite"],
+    ["Tecnologia para ambientes cirúrgicos","Technology for surgical environments","Technologie für chirurgische Umgebungen"],
+    ["Trocamos tubo, objetiva e lentes, e lapidamos fibra de luz e distal. As lentes são originais e compatíveis com os principais fabricantes europeus.","We replace tubes, objectives and lenses, and polish the light fibre and the distal tip. Our lenses are original and compatible with the main European manufacturers.","Wir tauschen Rohr, Objektiv und Linsen aus und schleifen Lichtleitfaser und distales Ende. Die Linsen sind Originale und mit den wichtigsten europäischen Herstellern kompatibel."],
+    ["Explorar o endoscópio","Explore the endoscope","Endoskop erkunden"],
+    ["Técnico apresenta endoscópios rígidos sobre a bancada, com torres de vídeo ao fundo","Technician presenting rigid endoscopes on the bench, with video towers in the background","Techniker präsentiert starre Endoskope auf der Werkbank, im Hintergrund Videotürme"],
+    ["Lentes originais compatíveis com fabricantes europeus","Original lenses compatible with European manufacturers","Originallinsen, kompatibel mit europäischen Herstellern"],
+    ["Manutenção preventiva, corretiva e preditiva","Preventive, corrective and predictive maintenance","Vorbeugende, korrektive und vorausschauende Wartung"],
+    ["Suporte técnico especializado","Specialized technical support","Spezialisierter technischer Support"],
+    ["Diferenciais","Highlights","Vorteile"],
+    ["Onde atuamos","Where we work","Wo wir arbeiten"],
+    ["Clique em uma peça e veja o serviço","Click a part to see the service","Teil anklicken und Leistung ansehen"],
+    ["Cada parte do endoscópio tem um reparo específico. Escolha a peça com problema e peça o orçamento já com o serviço indicado.","Each part of the endoscope has its own repair. Choose the part with the problem and request a quote with the service already selected.","Jedes Teil des Endoskops hat eine eigene Reparatur. Wählen Sie das betroffene Teil und fordern Sie das Angebot mit der passenden Leistung an."],
+    ["Desenho de um endoscópio. Toque em uma peça para ver o serviço.","Drawing of an endoscope. Tap a part to see the service.","Zeichnung eines Endoskops. Teil antippen, um die Leistung zu sehen."],
+    ["Eyepiece","Eyepiece","Okular"],
+    ["Window proximal","Proximal window","Proximales Fenster"],
+    ["Fibra de luz","Light fibre","Lichtleitfaser"],
+    ["Tubo","Tube","Rohr"],
+    ["Lentes","Lenses","Linsen"],
+    ["Objetiva e distal","Objective and distal tip","Objektiv und distales Ende"],
+    ["Orçamento deste serviço","Quote for this service","Angebot für diese Leistung"],
+    ["Ponta do endoscópio","Endoscope tip","Spitze des Endoskops"],
+    ["Iluminação","Illumination","Beleuchtung"],
+    ["Corpo longo do endoscópio","Long body of the endoscope","Langer Schaft des Endoskops"],
+    ["Sistema óptico","Optical system","Optisches System"],
+    ["Lado do observador","Observer side","Betrachterseite"],
+    ["Ocular","Eyepiece","Okular"],
+    ["Troca de objetiva e lapidação da distal","Objective replacement and distal tip polishing","Objektivtausch und Schliff des distalen Endes"],
+    ["Lapidação da fibra de luz","Light fibre polishing","Schliff der Lichtleitfaser"],
+    ["Troca de tubo","Tube replacement","Rohrtausch"],
+    ["Substituição de lentes","Lens replacement","Linsenaustausch"],
+    ["Substituição da window proximal","Proximal window replacement","Austausch des proximalen Fensters"],
+    ["Troca da eyepiece","Eyepiece replacement","Okulartausch"],
+    ["A objetiva forma a imagem na ponta do endoscópio. Fazemos a troca da objetiva e a lapidação da face distal.","The objective forms the image at the tip of the endoscope. We replace the objective and polish the distal face.","Das Objektiv erzeugt das Bild an der Spitze des Endoskops. Wir tauschen das Objektiv aus und schleifen die distale Fläche."],
+    ["A fibra de luz leva a iluminação da fonte até a ponta. Fazemos a lapidação da fibra de luz.","The light fibre carries illumination from the source to the tip. We polish the light fibre.","Die Lichtleitfaser führt das Licht von der Quelle bis zur Spitze. Wir schleifen die Lichtleitfaser."],
+    ["O tubo protege o conjunto óptico ao longo do endoscópio. Fazemos a troca de tubo.","The tube protects the optical assembly along the endoscope. We replace the tube.","Das Rohr schützt die Optik entlang des Endoskops. Wir tauschen das Rohr aus."],
+    ["Usamos lentes originais compatíveis com os principais fabricantes europeus.","We use original lenses compatible with the main European manufacturers.","Wir verwenden Originallinsen, die mit den wichtigsten europäischen Herstellern kompatibel sind."],
+    ["A window proximal é a janela de vidro do lado da ocular. Fazemos a substituição.","The proximal window is the glass window on the eyepiece side. We replace it.","Das proximale Fenster ist die Glasscheibe auf der Okularseite. Wir tauschen es aus."],
+    ["A eyepiece é a ocular por onde a imagem é observada. Fazemos a troca.","The eyepiece is where the image is observed. We replace it.","Das Okular ist die Stelle, durch die man das Bild betrachtet. Wir tauschen es aus."],
+    ["O que fazemos","What we do","Was wir tun"],
+    ["Manutenção preventiva, corretiva e preditiva em equipamentos médicos, com foco em endoscópios.","Preventive, corrective and predictive maintenance of medical equipment, focused on endoscopes.","Vorbeugende, korrektive und vorausschauende Wartung medizinischer Geräte, mit Schwerpunkt auf Endoskopen."],
+    ["Manutenção em endoscópios","Endoscope maintenance","Endoskopwartung"],
+    ["Solicitar orçamento","Request a quote","Angebot anfordern"],
+    ["Troca de tubo, troca de objetiva, lapidação da fibra de luz, lapidação da distal, troca da eyepiece, substituição da window proximal e substituição de lentes.","Tube replacement, objective replacement, light fibre polishing, distal tip polishing, eyepiece replacement, proximal window replacement and lens replacement.","Rohrtausch, Objektivtausch, Schliff der Lichtleitfaser, Schliff des distalen Endes, Okulartausch, Austausch des proximalen Fensters und Linsenaustausch."],
+    ["Consultoria técnica","Technical consulting","Technische Beratung"],
+    ["Sob consulta","On request","Auf Anfrage"],
+    ["Avaliação técnica do seu equipamento e orientação sobre o melhor caminho de reparo.","Technical assessment of your equipment and guidance on the best repair path.","Technische Beurteilung Ihres Geräts und Beratung zum besten Reparaturweg."],
+    ["Equipamentos de teste","Test equipment","Prüfgeräte"],
+    ["Linha Prime","Prime line","Prime-Linie"],
+    ["De multímetros a osciloscópios, para as medições mais complexas.","From multimeters to oscilloscopes, for the most complex measurements.","Von Multimetern bis zu Oszilloskopen, für die anspruchsvollsten Messungen."],
+    ["Instrumentos de medição","Measuring instruments","Messinstrumente"],
+    ["Alta precisão","High precision","Hohe Präzision"],
+    ["Seleção de instrumentos para resultados confiáveis e consistentes em cada aplicação.","A selection of instruments for reliable, consistent results in every application.","Eine Auswahl an Instrumenten für zuverlässige, konsistente Ergebnisse in jeder Anwendung."],
+    ["Acessórios especializados","Specialized accessories","Spezialzubehör"],
+    ["Complementos","Add-ons","Ergänzungen"],
+    ["Acessórios que completam os equipamentos de teste e medição.","Accessories that complete the test and measuring equipment.","Zubehör, das die Prüf- und Messgeräte ergänzt."],
+    ["Como funciona","How it works","So funktioniert es"],
+    ["Do pedido ao endoscópio revisado","From request to serviced endoscope","Von der Anfrage bis zum gewarteten Endoskop"],
+    ["Conte o problema","Describe the problem","Problem schildern"],
+    ["Informe o serviço e o modelo do endoscópio pelo formulário ou pelo WhatsApp.","Tell us the service and the endoscope model through the form or WhatsApp.","Nennen Sie Leistung und Endoskopmodell über das Formular oder WhatsApp."],
+    ["Receba o orçamento","Get the quote","Angebot erhalten"],
+    ["Nossa equipe avalia o pedido e responde com o orçamento.","Our team reviews the request and replies with a quote.","Unser Team prüft die Anfrage und antwortet mit einem Angebot."],
+    ["Aprove o serviço","Approve the service","Leistung freigeben"],
+    ["Com a aprovação, o reparo é programado.","Once approved, the repair is scheduled.","Nach der Freigabe wird die Reparatur eingeplant."],
+    ["Receba revisado","Get it back serviced","Gewartet zurückerhalten"],
+    ["O equipamento volta com a manutenção concluída.","The equipment returns with the maintenance completed.","Das Gerät kommt mit abgeschlossener Wartung zurück."],
+    ["Nosso padrão","Our standard","Unser Standard"],
+    ["Precisão que se vê na imagem final","Precision you can see in the final image","Präzision, die man im Endbild sieht"],
+    ["Inovação em cada detalhe","Innovation in every detail","Innovation in jedem Detail"],
+    ["Equipamentos e gabaritos de análise técnica de última geração, pensados para testes e medições exigentes.","State-of-the-art equipment and technical analysis fixtures, designed for demanding tests and measurements.","Modernste Geräte und technische Prüfvorrichtungen für anspruchsvolle Tests und Messungen."],
+    ["Qualidade superior","Superior quality","Überlegene Qualität"],
+    ["Compromisso com a excelência. Cada serviço segue os mais altos padrões de qualidade e desempenho.","A commitment to excellence. Every service follows the highest standards of quality and performance.","Verpflichtung zur Exzellenz. Jede Leistung folgt höchsten Qualitäts- und Leistungsstandards."],
+    ["Suporte especializado","Specialized support","Spezialisierter Support"],
+    ["Acompanhamento técnico para você obter o máximo de qualidade e precisão nas suas medições.","Technical support so you get the most quality and precision from your measurements.","Technische Begleitung, damit Sie bei Ihren Messungen das Maximum an Qualität und Präzision erhalten."],
+    ["Perguntas frequentes","Frequently asked questions","Häufig gestellte Fragen"],
+    ["Quais reparos vocês fazem?","Which repairs do you perform?","Welche Reparaturen führen Sie durch?"],
+    ["As lentes são originais?","Are the lenses original?","Sind die Linsen original?"],
+    ["Sim. Usamos lentes originais compatíveis com os principais fabricantes europeus.","Yes. We use original lenses compatible with the main European manufacturers.","Ja. Wir verwenden Originallinsen, die mit den wichtigsten europäischen Herstellern kompatibel sind."],
+    ["Como peço um orçamento?","How do I request a quote?","Wie fordere ich ein Angebot an?"],
+    ["Preencha o formulário abaixo, que monta a mensagem para o WhatsApp, ou fale direto pelo telefone (16) 99223-7907 ou pelo e-mail primevideocirurgia@outlook.com.","Fill in the form below, which builds the WhatsApp message, or contact us directly by phone at (16) 99223-7907 or by e-mail at primevideocirurgia@outlook.com.","Füllen Sie das Formular unten aus, das die WhatsApp-Nachricht erstellt, oder kontaktieren Sie uns direkt per Telefon unter (16) 99223-7907 oder per E-Mail an primevideocirurgia@outlook.com."],
+    ["Vocês fazem consultoria técnica?","Do you offer technical consulting?","Bieten Sie technische Beratung an?"],
+    ["Sim. A consultoria é sob consulta. Escolha \"Consultoria técnica\" no formulário de orçamento.","Yes. Consulting is available on request. Choose \"Technical consulting\" in the quote form.","Ja. Die Beratung erfolgt auf Anfrage. Wählen Sie im Angebotsformular \"Technische Beratung\"."],
+    ["Onde vocês ficam?","Where are you located?","Wo befinden Sie sich?"],
+    ["Peça seu orçamento","Request your quote","Fordern Sie Ihr Angebot an"],
+    ["Conte qual serviço você precisa e o modelo do equipamento. Montamos a mensagem e você envia pelo WhatsApp.","Tell us which service you need and your equipment model. We build the message and you send it via WhatsApp.","Nennen Sie uns die gewünschte Leistung und das Gerätemodell. Wir erstellen die Nachricht, und Sie senden sie über WhatsApp."],
+    ["Telefone e WhatsApp","Phone and WhatsApp","Telefon und WhatsApp"],
+    ["E-mail","E-mail","E-Mail"],
+    ["Endereço","Address","Adresse"],
+    ["Serviço","Service","Leistung"],
+    ["Marca e modelo do endoscópio","Endoscope brand and model","Marke und Modell des Endoskops"],
+    ["O que está acontecendo","What is happening","Was ist das Problem"],
+    ["Seu nome","Your name","Ihr Name"],
+    ["Ex.: marca, modelo, diâmetro","E.g. brand, model, diameter","z. B. Marke, Modell, Durchmesser"],
+    ["Ex.: imagem escura, tubo amassado, lente quebrada","E.g. dark image, dented tube, broken lens","z. B. dunkles Bild, verbeultes Rohr, zerbrochene Linse"],
+    ["Troca de objetiva","Objective replacement","Objektivtausch"],
+    ["Lapidação da distal","Distal tip polishing","Schliff des distalen Endes"],
+    ["Montar mensagem","Build message","Nachricht erstellen"],
+    ["Abrir no WhatsApp","Open in WhatsApp","In WhatsApp öffnen"],
+    ["Copiar mensagem","Copy message","Nachricht kopieren"],
+    ["Se o WhatsApp não abrir, copie a mensagem e envie para (16) 99223-7907.","If WhatsApp does not open, copy the message and send it to (16) 99223-7907.","Falls sich WhatsApp nicht öffnet, kopieren Sie die Nachricht und senden Sie sie an (16) 99223-7907."],
+    ["Falar no WhatsApp","Chat on WhatsApp","Per WhatsApp schreiben"]
+  ];
+  var maps={en:{},de:{}};
+  T.forEach(function(r){maps.en[r[0]]=r[1];maps.de[r[0]]=r[2]});
+  var has=Object.prototype.hasOwnProperty;
+  var lang="pt";
+  function tr(s){return lang==="pt"?s:(has.call(maps[lang],s)?maps[lang][s]:s)}
+
+  var H1={
+    pt:"<span>Manutenção de</span><span>endoscópios</span><span>de <em>precisão</em></span>",
+    en:"<span>Endoscope</span><span>maintenance</span><span>with <em>precision</em></span>",
+    de:"<span>Wartung von</span><span>Endoskopen</span><span>mit <em>Präzision</em></span>"
+  };
+  var M={
+    pt:{hello:"Olá, Prime Precision! Gostaria de um orçamento.",svc:"Serviço: ",eq:"Equipamento: ",iss:"Situação: ",nm:"Meu nome: ",ok:"Copiado",man:"Selecione o texto e copie"},
+    en:{hello:"Hello, Prime Precision! I would like a quote.",svc:"Service: ",eq:"Equipment: ",iss:"Issue: ",nm:"My name: ",ok:"Copied",man:"Select the text and copy"},
+    de:{hello:"Guten Tag, Prime Precision! Ich möchte ein Angebot anfordern.",svc:"Leistung: ",eq:"Gerät: ",iss:"Problem: ",nm:"Mein Name: ",ok:"Kopiert",man:"Text markieren und kopieren"}
+  };
+
   var parts = {
     objetiva:{chip:"Objetiva e distal",what:"Ponta do endoscópio",title:"Troca de objetiva e lapidação da distal",text:"A objetiva forma a imagem na ponta do endoscópio. Fazemos a troca da objetiva e a lapidação da face distal.",service:"Troca de objetiva"},
     luz:{chip:"Fibra de luz",what:"Iluminação",title:"Lapidação da fibra de luz",text:"A fibra de luz leva a iluminação da fonte até a ponta. Fazemos a lapidação da fibra de luz.",service:"Lapidação da fibra de luz"},
@@ -471,17 +646,44 @@ footer a{color:var(--on-black)}
   var current="objetiva";
   var chips=document.getElementById("chips");
   var scope=document.getElementById("scope");
-  order.forEach(function(id){
-    var b=document.createElement("button");
-    b.type="button";b.className="chip";b.dataset.id=id;b.textContent=parts[id].chip;
-    b.addEventListener("click",function(){select(id)});
-    chips.appendChild(b);
-  });
+  var h1=document.querySelector(".hero-copy h1");
+  var sel=document.getElementById("f-servico");
+  var out=document.getElementById("out"),txt=document.getElementById("out-text"),wa=document.getElementById("wa");
+  var copyBtn=document.getElementById("copy");
+
+  /* guarda os textos originais (português) antes de qualquer troca */
+  var textNodes=[],attrs=[];
+  (function(){
+    var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null),n;
+    while((n=w.nextNode())){
+      var pn=n.parentNode&&n.parentNode.nodeName;
+      if(pn==="SCRIPT"||pn==="STYLE")continue;
+      var t=n.nodeValue.trim();
+      if(t&&has.call(maps.en,t))textNodes.push({n:n,pt:t,pre:n.nodeValue.match(/^\s*/)[0],post:n.nodeValue.match(/\s*$/)[0]});
+    }
+    Array.prototype.forEach.call(document.querySelectorAll("[aria-label],[placeholder],[alt]"),function(el){
+      ["aria-label","placeholder","alt"].forEach(function(a){
+        var v=el.getAttribute(a);
+        if(v&&has.call(maps.en,v))attrs.push({el:el,a:a,pt:v});
+      });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("option"),function(o){o.dataset.pt=o.textContent.trim()});
+  })();
+
+  function renderChips(){
+    chips.innerHTML="";
+    order.forEach(function(id){
+      var b=document.createElement("button");
+      b.type="button";b.className="chip";b.dataset.id=id;b.textContent=tr(parts[id].chip);
+      b.addEventListener("click",function(){select(id)});
+      chips.appendChild(b);
+    });
+  }
   function select(id){
     current=id;var p=parts[id];
-    document.getElementById("d-what").textContent=p.what;
-    document.getElementById("d-title").textContent=p.title;
-    document.getElementById("d-text").textContent=p.text;
+    document.getElementById("d-what").textContent=tr(p.what);
+    document.getElementById("d-title").textContent=tr(p.title);
+    document.getElementById("d-text").textContent=tr(p.text);
     Array.prototype.forEach.call(chips.children,function(c){c.setAttribute("aria-pressed",c.dataset.id===id?"true":"false")});
     Array.prototype.forEach.call(scope.querySelectorAll(".part"),function(g){g.classList.toggle("on",g.dataset.id===id)});
   }
@@ -489,12 +691,24 @@ footer a{color:var(--on-black)}
     g.addEventListener("click",function(){select(g.dataset.id)});
     g.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();select(g.dataset.id)}});
   });
-  select("objetiva");
 
-  var sel=document.getElementById("f-servico");
+  var langBtns=document.querySelectorAll(".lang button");
+  function apply(l){
+    lang=l;
+    textNodes.forEach(function(o){o.n.nodeValue=o.pre+tr(o.pt)+o.post});
+    attrs.forEach(function(o){o.el.setAttribute(o.a,tr(o.pt))});
+    h1.innerHTML=H1[l];
+    document.documentElement.lang={pt:"pt-BR",en:"en",de:"de"}[l];
+    Array.prototype.forEach.call(langBtns,function(b){b.setAttribute("aria-pressed",b.dataset.l===l?"true":"false")});
+    renderChips();select(current);
+    out.classList.remove("show");
+    try{localStorage.setItem("prime-lang",l)}catch(e){}
+  }
+  Array.prototype.forEach.call(langBtns,function(b){b.addEventListener("click",function(){apply(b.dataset.l)})});
+
   function goQuote(service){
     if(service){
-      Array.prototype.forEach.call(sel.options,function(o){if(o.text.toLowerCase()===service.toLowerCase()){sel.selectedIndex=o.index}});
+      Array.prototype.forEach.call(sel.options,function(o){if((o.dataset.pt||"").toLowerCase()===service.toLowerCase()){sel.selectedIndex=o.index}});
     }
     document.getElementById("orcamento").scrollIntoView({behavior:"smooth"});
     setTimeout(function(){document.getElementById("f-equip").focus({preventScroll:true})},500);
@@ -504,31 +718,56 @@ footer a{color:var(--on-black)}
     a.addEventListener("click",function(e){e.preventDefault();goQuote(a.dataset.service)});
   });
 
-  var form=document.getElementById("form"),out=document.getElementById("out"),txt=document.getElementById("out-text"),wa=document.getElementById("wa");
-  form.addEventListener("submit",function(e){
+  document.getElementById("form").addEventListener("submit",function(e){
     e.preventDefault();
     var v=function(id){return document.getElementById(id).value.trim()};
-    var lines=["Olá, Prime Precision! Gostaria de um orçamento.","Serviço: "+sel.options[sel.selectedIndex].text];
-    if(v("f-equip"))lines.push("Equipamento: "+v("f-equip"));
-    if(v("f-msg"))lines.push("Situação: "+v("f-msg"));
-    if(v("f-nome"))lines.push("Meu nome: "+v("f-nome"));
+    var m=M[lang],opt=sel.options[sel.selectedIndex];
+    var name=opt.text.trim();
+    if(lang!=="pt")name+=" ("+opt.dataset.pt+")";
+    var lines=[m.hello,m.svc+name];
+    if(v("f-equip"))lines.push(m.eq+v("f-equip"));
+    if(v("f-msg"))lines.push(m.iss+v("f-msg"));
+    if(v("f-nome"))lines.push(m.nm+v("f-nome"));
     var msg=lines.join("\n");
     txt.textContent=msg;
     wa.href="https://wa.me/5516992237907?text="+encodeURIComponent(msg);
     out.classList.add("show");
   });
-  document.getElementById("copy").addEventListener("click",function(){
-    var btn=this,msg=txt.textContent;
-    function done(ok){btn.textContent=ok?"Copiado":"Selecione o texto e copie";setTimeout(function(){btn.textContent="Copiar mensagem"},2000)}
+  copyBtn.addEventListener("click",function(){
+    var nd=copyBtn.firstChild,msg=txt.textContent;
+    function done(ok){nd.nodeValue=ok?M[lang].ok:M[lang].man;setTimeout(function(){nd.nodeValue=tr("Copiar mensagem")},2000)}
     function manual(){var r=document.createRange();r.selectNodeContents(txt);var s=window.getSelection();s.removeAllRanges();s.addRange(r);done(false)}
     try{navigator.clipboard.writeText(msg).then(function(){done(true)},manual)}catch(err){manual()}
   });
 
   var root=document.documentElement;
-  document.getElementById("theme").addEventListener("click",function(){
+  function toggleTheme(){
     var dark=root.dataset.theme?root.dataset.theme==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;
     root.dataset.theme=dark?"light":"dark";
-  });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".theme,.tbtn"),function(b){b.addEventListener("click",toggleTheme)});
+
+  var burger=document.getElementById("burger"),menu=document.getElementById("menu");
+  function setMenu(open){menu.hidden=!open;burger.setAttribute("aria-expanded",open?"true":"false")}
+  burger.addEventListener("click",function(){setMenu(menu.hidden)});
+  Array.prototype.forEach.call(menu.querySelectorAll("a"),function(a){a.addEventListener("click",function(){setMenu(false)})});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!menu.hidden){setMenu(false);burger.focus()}});
+  var wide=window.matchMedia("(min-width:861px)");
+  function onWide(){if(wide.matches)setMenu(false)}
+  if(wide.addEventListener)wide.addEventListener("change",onWide);else if(wide.addListener)wide.addListener(onWide);
+
+  var small=window.matchMedia("(max-width:700px)");
+  function fitScope(){scope.setAttribute("viewBox",small.matches?"24 20 1040 160":"0 0 1100 250")}
+  fitScope();
+  if(small.addEventListener)small.addEventListener("change",fitScope);else if(small.addListener)small.addListener(fitScope);
+
+  var start="pt";
+  try{
+    var s=localStorage.getItem("prime-lang");
+    if(s==="pt"||s==="en"||s==="de")start=s;
+    else{var nl=(navigator.language||"pt").slice(0,2).toLowerCase();if(nl==="en"||nl==="de")start=nl}
+  }catch(e){}
+  apply(start);
 })();
 </script>
 
