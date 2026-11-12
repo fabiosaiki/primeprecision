@@ -61,8 +61,9 @@ nav a:not(.btn):hover{color:var(--ink)}
 /* hero */
 .hero{padding-block:32px 0}
 .hero-card{position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);background:var(--black);border-radius:20px;overflow:hidden;min-height:480px}
-.hero-copy{position:relative;z-index:2;padding:48px 20px 48px 44px;display:flex;flex-direction:column;justify-content:center;color:var(--on-black)}
-.hero-copy h1{font-size:clamp(2.6rem,5.2vw,4.6rem);font-weight:800;line-height:.98}
+.hero-copy{position:relative;z-index:2;padding:48px 100px 48px 44px;display:flex;flex-direction:column;justify-content:center;color:var(--on-black)}
+.hero-copy h1{font-size:clamp(2.2rem,3.7vw,3.4rem);font-weight:800;line-height:1.02;letter-spacing:.01em}
+.hero-copy h1 span{display:block;white-space:nowrap}
 .hero-copy h1 em{font-style:normal;color:var(--red)}
 .hero-copy .rule{width:100%;max-width:300px;height:2px;background:var(--red);margin:22px 0 18px}
 .hero-copy .tech{font-family:var(--font-display);text-transform:uppercase;font-size:1.25rem;font-weight:500;letter-spacing:.03em;color:var(--on-black-muted)}
@@ -175,6 +176,7 @@ footer a{color:var(--on-black)}
 @media (max-width:900px){
   .hero-card{grid-template-columns:minmax(0,1fr);min-height:0}
   .hero-copy{padding:36px 22px}
+  .hero-copy h1{font-size:clamp(2.3rem,8.5vw,3.6rem)}
   .hero-img{margin-left:0;height:300px}
   .hero-img .red{clip-path:none;height:6px;bottom:auto}
   .hero-img img{clip-path:none;top:6px;height:calc(100% - 6px)}
@@ -218,13 +220,12 @@ footer a{color:var(--on-black)}
   <div class="inner hero">
     <div class="hero-card">
       <div class="hero-copy">
-        <h1>Manutenção de endoscópios de <em>precisão</em></h1>
+        <h1><span>Manutenção de</span><span>endoscópios de</span><span><em>precisão</em></span></h1>
         <div class="rule"></div>
         <p class="tech">Tecnologia para ambientes cirúrgicos</p>
         <p class="lead">Trocamos tubo, objetiva e lentes, e lapidamos fibra de luz e distal. As lentes são originais e compatíveis com os principais fabricantes europeus.</p>
         <div class="cta">
-          <a class="btn" href="#orcamento">Pedir orçamento</a>
-          <a class="btn ghost" href="#endoscopio">Explorar o endoscópio</a>
+          <a class="btn" href="#endoscopio">Explorar o endoscópio</a>
         </div>
       </div>
       <div class="hero-img">
