@@ -1,0 +1,4 @@
+{
+  "buildCommand": "node protect.mjs",
+  "outputDirectory": "dist"
+}
