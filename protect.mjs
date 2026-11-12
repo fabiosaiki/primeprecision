@@ -53,8 +53,12 @@ const gate = `<!doctype html>
 <style>
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:#0E1114;color:#F1F3F4;font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-main{width:100%;max-width:380px;background:#171B1F;border:1px solid #2A3138;border-top:4px solid #D60210;border-radius:14px;padding:28px}
+main{position:relative;width:100%;max-width:380px;background:#171B1F;border:1px solid #2A3138;border-top:4px solid #D60210;border-radius:14px;padding:28px}
 img{display:block;height:40px;width:auto;margin-bottom:22px}
+.lang{width:fit-content;margin:0 0 18px auto;display:flex;gap:2px;border:1px solid #2A3138;border-radius:999px;padding:3px;background:#0E1114}
+.lang button{width:auto;font:600 .8rem system-ui,sans-serif;color:#A3ADB5;background:transparent;border:0;border-radius:999px;padding:6px 10px;min-width:36px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:#D60210;color:#fff}
+.lang button:hover{color:#F1F3F4}
 h1{margin:0 0 6px;font-size:1.3rem}
 p{margin:0 0 18px;color:#A3ADB5;font-size:.95rem}
 label{display:block;font-weight:600;font-size:.9rem;margin-bottom:6px}
@@ -68,20 +72,46 @@ button:disabled{opacity:.6;cursor:wait}
 </head>
 <body>
 <main>
+  <div class="lang" id="lang" role="group" aria-label="Idioma">
+    <button type="button" data-l="pt" aria-label="Português" aria-pressed="true">PT</button>
+    <button type="button" data-l="en" aria-label="English" aria-pressed="false">EN</button>
+    <button type="button" data-l="de" aria-label="Deutsch" aria-pressed="false">DE</button>
+  </div>
   ${logo ? `<img src="${logo}" alt="Prime">` : ''}
-  <h1>Acesso restrito</h1>
-  <p>Digite a senha para ver o site.</p>
+  <h1 data-i="title">Acesso restrito</h1>
+  <p data-i="sub">Digite a senha para ver o site.</p>
   <form id="f" autocomplete="off">
-    <label for="pw">Senha</label>
+    <label for="pw" data-i="pw">Senha</label>
     <input id="pw" type="password" autocomplete="current-password" required autofocus>
-    <label class="rem" for="rem"><input id="rem" type="checkbox" checked> Lembrar neste aparelho</label>
-    <button id="go" type="submit">Entrar</button>
+    <label class="rem" for="rem"><input id="rem" type="checkbox" checked> <span data-i="rem">Lembrar neste aparelho</span></label>
+    <button id="go" type="submit" data-i="go">Entrar</button>
     <div class="err" id="err" role="alert"></div>
   </form>
 </main>
 <script>
 var P=${JSON.stringify(payload)};
 var K="prime-key";
+var TX={
+  pt:{title:"Acesso restrito",sub:"Digite a senha para ver o site.",pw:"Senha",rem:"Lembrar neste aparelho",go:"Entrar",bad:"Senha incorreta. Tente de novo.",nosub:"Este navegador não consegue abrir a página protegida. Use um navegador atualizado e o endereço https.",grp:"Idioma"},
+  en:{title:"Restricted access",sub:"Enter the password to view the site.",pw:"Password",rem:"Remember on this device",go:"Enter",bad:"Incorrect password. Please try again.",nosub:"This browser cannot open the protected page. Use an up-to-date browser and the https address.",grp:"Language"},
+  de:{title:"Zugriff beschränkt",sub:"Geben Sie das Passwort ein, um die Website zu sehen.",pw:"Passwort",rem:"Auf diesem Gerät merken",go:"Anmelden",bad:"Falsches Passwort. Bitte versuchen Sie es erneut.",nosub:"Dieser Browser kann die geschützte Seite nicht öffnen. Verwenden Sie einen aktuellen Browser und die https-Adresse.",grp:"Sprache"}
+};
+var lang="pt";
+function setLang(l,save){
+  lang=l;var d=TX[l];
+  document.documentElement.lang={pt:"pt-BR",en:"en",de:"de"}[l];
+  Array.prototype.forEach.call(document.querySelectorAll("[data-i]"),function(e){e.textContent=d[e.getAttribute("data-i")]});
+  document.getElementById("lang").setAttribute("aria-label",d.grp);
+  Array.prototype.forEach.call(document.querySelectorAll("#lang button"),function(b){b.setAttribute("aria-pressed",b.getAttribute("data-l")===l?"true":"false")});
+  var er=document.getElementById("err");if(er&&er.getAttribute("data-k")){er.textContent=d[er.getAttribute("data-k")]}
+  if(save){try{localStorage.setItem("prime-lang",l)}catch(e){}}
+}
+function startLang(){
+  var l="pt";
+  try{var s=localStorage.getItem("prime-lang");if(s==="pt"||s==="en"||s==="de")l=s;else{var n=(navigator.language||"pt").slice(0,2).toLowerCase();if(n==="en"||n==="de")l=n}}catch(e){}
+  setLang(l,false);
+}
+function showErr(k){var er=document.getElementById("err");er.setAttribute("data-k",k);er.textContent=TX[lang][k]}
 function b64(s){return Uint8Array.from(atob(s),function(c){return c.charCodeAt(0)})}
 function open_(html){document.open();document.write(html);document.close()}
 async function decryptWith(key){
@@ -93,14 +123,16 @@ async function derive(pw){
   return crypto.subtle.deriveKey({name:"PBKDF2",salt:b64(P.s),iterations:P.i,hash:"SHA-256"},km,{name:"AES-GCM",length:256},true,["decrypt"]);
 }
 (async function(){
-  if(!window.crypto||!crypto.subtle){document.getElementById("err").textContent="Este navegador não consegue abrir a página protegida. Use um navegador atualizado e o endereço https.";return}
+  startLang();
+  Array.prototype.forEach.call(document.querySelectorAll("#lang button"),function(b){b.addEventListener("click",function(){setLang(b.getAttribute("data-l"),true)})});
+  if(!window.crypto||!crypto.subtle){showErr("nosub");return}
   try{var saved=localStorage.getItem(K);if(saved){
     var k=await crypto.subtle.importKey("raw",b64(saved),"AES-GCM",false,["decrypt"]);
     open_(await decryptWith(k));return}}catch(e){try{localStorage.removeItem(K)}catch(_){}}
   document.getElementById("f").addEventListener("submit",async function(e){
     e.preventDefault();
     var go=document.getElementById("go"),err=document.getElementById("err");
-    go.disabled=true;err.textContent="";
+    go.disabled=true;err.textContent="";err.removeAttribute("data-k");
     try{
       var key=await derive(document.getElementById("pw").value);
       var html=await decryptWith(key);
@@ -108,7 +140,7 @@ async function derive(pw){
         try{var raw=new Uint8Array(await crypto.subtle.exportKey("raw",key));
           localStorage.setItem(K,btoa(String.fromCharCode.apply(null,raw)))}catch(_){}}
       open_(html);
-    }catch(x){err.textContent="Senha incorreta. Tente de novo.";go.disabled=false;document.getElementById("pw").select()}
+    }catch(x){showErr("bad");go.disabled=false;document.getElementById("pw").select()}
   });
 })();
 </script>
