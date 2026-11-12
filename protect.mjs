@@ -113,7 +113,31 @@ function startLang(){
 }
 function showErr(k){var er=document.getElementById("err");er.setAttribute("data-k",k);er.textContent=TX[lang][k]}
 function b64(s){return Uint8Array.from(atob(s),function(c){return c.charCodeAt(0)})}
-function open_(html){document.open();document.write(html);document.close()}
+function open_(html){
+  var d=new DOMParser().parseFromString(html,"text/html");
+  var de=document.documentElement,ne=d.documentElement,i;
+  while(de.attributes.length)de.removeAttribute(de.attributes[0].name);
+  for(i=0;i<ne.attributes.length;i++)de.setAttribute(ne.attributes[i].name,ne.attributes[i].value);
+  var head=document.head,body=document.body;
+  head.textContent="";
+  while(body.attributes.length)body.removeAttribute(body.attributes[0].name);
+  for(i=0;i<d.body.attributes.length;i++)body.setAttribute(d.body.attributes[i].name,d.body.attributes[i].value);
+  body.textContent="";
+  var scripts=[];
+  function put(from,to){
+    Array.prototype.slice.call(from.childNodes).forEach(function(n){
+      if(n.nodeName==="SCRIPT"){scripts.push([n,to]);return}
+      to.appendChild(document.importNode(n,true));
+    });
+  }
+  put(d.head,head);put(d.body,body);
+  scripts.forEach(function(x){
+    var o=x[0],s=document.createElement("script");
+    for(var j=0;j<o.attributes.length;j++)s.setAttribute(o.attributes[j].name,o.attributes[j].value);
+    s.text=o.textContent;x[1].appendChild(s);
+  });
+  window.scrollTo(0,0);
+}
 async function decryptWith(key){
   var buf=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64(P.v)},key,b64(P.c));
   return new TextDecoder().decode(buf);

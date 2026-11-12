@@ -586,8 +586,10 @@ window.PrimeViewer=function(host,cb){
 
     /* ---------- materiais ---------- */
     var MAT={
-      steel:{base:[0.80,0.82,0.85],metal:1,rough:0.10},
-      dark:{base:[0.52,0.54,0.57],metal:1,rough:0.30},
+      steel:{base:[0.74,0.76,0.79],metal:1,rough:0.12},
+      gun:{base:[0.52,0.54,0.57],metal:1,rough:0.22},
+      bright:{base:[0.86,0.88,0.91],metal:1,rough:0.14},
+      dark:{base:[0.30,0.31,0.34],metal:1,rough:0.35},
       rubber:{base:[0.045,0.045,0.05],metal:0,rough:0.70},
       red:{base:[0.80,0.03,0.05],metal:0,rough:0.20},
       glass:{base:[0.35,0.70,0.80],glass:1},
@@ -598,32 +600,45 @@ window.PrimeViewer=function(host,cb){
     var M=[];
     function add(profile,N,pos,axis,mat,part,kind){M.push({geo:lathe(profile,N),f:frame(pos,axis),mat:MAT[mat],part:part||null,kind:kind||"solid",hl:0})}
     var X=[1,0,0];
-    /* tubo e ponta */
-    add([[1.2,0.17],[8.8,0.17]],56,[0,0,0],X,"steel","tubo","tube");
-    add([[8.8,0.17],[8.8,0.20],[9.0,0.20],[9.0,0.14]],56,[0,0,0],X,"steel","objetiva");
-    add([[8.99,0.14],[8.99,0]],40,[0,0,0],X,"glass","objetiva","glass");
-    /* corpo */
-    add([[-0.90,0.33],[-0.90,0.38],[-0.20,0.40],[0.50,0.43],[0.50,0.41],[0.90,0.41],[1.05,0.37],[1.25,0.26],[1.40,0.19],[1.45,0.17]],64,[0,0,0],X,"steel",null);
-    /* ocular (eyepiece) e janela proximal */
-    add([[-0.90,0.33],[-0.98,0.35],[-1.25,0.35],[-1.34,0.29],[-1.45,0.27],[-1.45,0.19],[-1.30,0.19],[-1.30,0]],56,[0,0,0],X,"steel","ocular");
-    add([[-1.305,0.185],[-1.305,0]],40,[0,0,0],X,"glass","window","glass");
-    /* parafusos laterais */
-    add([[-0.05,0.09],[0.08,0.09],[0.08,0.07],[0.16,0.07],[0.16,0]],24,[-0.10,0,0.38],[0,0,1],"dark",null);
-    add([[-0.05,0.09],[0.08,0.09],[0.08,0.07],[0.16,0.07],[0.16,0]],24,[-0.10,0,-0.38],[0,0,-1],"dark",null);
-    /* entrada de luz */
-    var dPost=norm([0.35,-0.45,0.82]),pPost=[0.95,-0.28,0.27];
-    add([[-0.05,0.11],[0.25,0.11],[0.25,0.075],[0.55,0.075],[0.55,0.13],[0.72,0.13],[0.72,0.09],[0.92,0.09],[0.92,0]],40,pPost,dPost,"steel","luz");
-    add([[0.925,0.07],[0.925,0]],24,pPost,dPost,"emis","luz","glow");
-    /* cabo em pistola, anel vermelho e capa de borracha */
-    var dH=norm([-0.30,-0.95,0]),pH=[0.12,-0.33,0];
-    add([[-0.10,0.32],[0.30,0.36],[1.00,0.32],[1.80,0.27],[2.30,0.265],[3.00,0.31],[3.10,0.33]],56,pH,dH,"steel",null);
-    add([[3.10,0.33],[3.10,0.345],[3.20,0.345],[3.20,0.33]],56,pH,dH,"red",null);
-    add([[3.20,0.33],[3.25,0.40],[3.40,0.55],[3.55,0.68],[3.62,0.70],[3.66,0.66],[3.66,0.30],[3.58,0.26],[3.58,0]],64,pH,dH,"rubber",null);
-    add([[3.59,0.24],[3.59,0]],40,pH,dH,"dark",null);
+    function addTri(p,mat,part){
+      var u=sub(p[1],p[0]),w=sub(p[2],p[0]),n=norm(cross(u,w));if(n[1]<0)n=[-n[0],-n[1],-n[2]];
+      var vv=[];p.forEach(function(q){vv.push(q[0],q[1],q[2],n[0],n[1],n[2])});
+      M.push({geo:{v:new Float32Array(vv),i:new Uint16Array([0,1,2])},f:frame([0,0,0],X),mat:MAT[mat],part:part||null,kind:"solid",hl:0});
+    }
+    /* haste (tubo) e ponta */
+    add([[1.6,0.13],[8.85,0.13]],56,[0,0,0],X,"steel","tubo","tube");
+    /* ponta: tubo oco de parede fina, com a lente recuada */
+    add([[8.85,0.13],[9.0,0.13],[9.0,0.108],[8.80,0.108]],56,[0,0,0],X,"steel","objetiva");
+    add([[8.80,0.108],[8.80,0.04]],32,[0,0,0],X,"dark","objetiva");
+    add([[8.86,0.108],[8.86,0]],40,[0,0,0],X,"glass","objetiva","glass");
+    /* corpo: cilindro traseiro + cone longo até a haste */
+    add([[-1.45,0.22],[-1.45,0.34],[-1.39,0.40],[-1.30,0.41],[0.05,0.41],[1.55,0.17],[1.70,0.16],[1.70,0.13]],64,[0,0,0],X,"gun",null);
+    /* tampa traseira: aro escuro e miolo */
+    add([[-1.452,0.26],[-1.452,0.15]],40,[0,0,0],X,"dark",null);
+    add([[-1.455,0.15],[-1.455,0.07]],32,[0,0,0],X,"steel",null);
+    add([[-1.456,0.07],[-1.456,0]],24,[0,0,0],X,"dark",null);
+    /* faceta plana clara sobre o cone */
+    (function(){var rc=function(x){return 0.41-(x-0.05)*(0.24/1.5)};
+      addTri([[0.28,rc(0.28)+0.006,-0.16],[0.28,rc(0.28)+0.006,0.16],[1.30,rc(1.30)+0.006,0]],"bright")})();
+    /* parafusos laterais (base redonda com cabeça) */
+    var scr=[[-0.05,0.17],[0.07,0.17],[0.07,0.12],[0.13,0.12],[0.13,0.075],[0.16,0.075],[0.16,0]];
+    add(scr,32,[-0.45,0.10,0.34],norm([0,0.18,1]),"dark",null);
+    add(scr,32,[-0.45,0.10,-0.34],norm([0,0.18,-1]),"dark",null);
+    /* entrada de luz: pino com ranhuras, aponta para baixo */
+    var dPost=norm([0.22,-0.85,0.47]),pPost=[0.30,-0.25,0.10];
+    add([[-0.05,0.12],[0.12,0.12],[0.12,0.08],[0.30,0.08],[0.30,0.11],[0.38,0.11],[0.38,0.08],[0.44,0.08],[0.44,0.11],[0.52,0.11],[0.52,0.08],[0.58,0.08],[0.58,0.11],[0.66,0.11],[0.66,0.08],[0.72,0.08],[0.72,0.10],[0.80,0.10],[0.80,0]],40,pPost,dPost,"gun","luz");
+    add([[0.805,0.065],[0.805,0]],24,pPost,dPost,"emis","luz","glow");
+    /* tubo da ocular: inclinado para trás, anel vermelho e capa de borracha */
+    var dH=norm([-0.643,-0.766,0]),pH=[-0.40,-0.05,0];
+    add([[-0.20,0.25],[1.55,0.25],[1.75,0.285],[2.00,0.29],[2.85,0.31],[2.90,0.315]],56,pH,dH,"gun",null);
+    add([[2.90,0.315],[2.90,0.33],[3.02,0.33],[3.02,0.315]],56,pH,dH,"red","ocular");
+    add([[3.02,0.315],[3.08,0.38],[3.22,0.50],[3.36,0.60],[3.44,0.66],[3.48,0.62],[3.48,0.28],[3.40,0.24],[3.40,0.22]],64,pH,dH,"rubber","ocular");
+    add([[3.405,0.22],[3.405,0.12]],40,pH,dH,"steel","ocular");
+    add([[3.41,0.12],[3.41,0]],32,pH,dH,"glass","window","glass");
     /* por dentro: lentes de bastão e fibra de luz */
     for(var q=0;q<8;q++){var x0=1.9+q*0.88,x1=x0+0.55;
-      add([[x0,0],[x0,0.085],[x0+0.05,0.10],[x1-0.05,0.10],[x1,0.085],[x1,0]],28,[0,0,0],X,"glass","lentes","xlens")}
-    add([[1.0,0.03],[8.9,0.03]],14,[0,0.128,0],X,"emis","luz","xfibre");
+      add([[x0,0],[x0,0.06],[x0+0.05,0.075],[x1-0.05,0.075],[x1,0.06],[x1,0]],28,[0,0,0],X,"glass","lentes","xlens")}
+    add([[1.0,0.025],[8.9,0.025]],14,[0,0.085,0],X,"emis","luz","xfibre");
 
     /* ---------- shaders ---------- */
     var VS="attribute vec3 aPos;attribute vec3 aNor;uniform mat4 uVP;uniform mat4 uModel;uniform mat3 uNM;varying vec3 vN;varying vec3 vW;"+
@@ -632,8 +647,8 @@ window.PrimeViewer=function(host,cb){
       "varying vec3 vN;varying vec3 vW;uniform vec3 uEye;uniform vec3 uBase;uniform float uMetal;uniform float uRough;uniform float uAlpha;uniform float uHL;uniform float uTime;uniform float uGlass;uniform float uEmis;\n"+
       "vec3 env(vec3 r){float y=r.y;"+
       "vec3 c=mix(vec3(0.20,0.22,0.25),vec3(0.70,0.74,0.78),smoothstep(-0.6,0.0,y));"+
-      "c=mix(c,vec3(0.92,0.95,1.0),smoothstep(0.0,0.85,y));"+
-      "c+=1.5*smoothstep(0.90,0.985,dot(r,normalize(vec3(-0.5,0.8,0.55))));"+
+      "c=mix(c,vec3(0.76,0.80,0.86),smoothstep(0.0,0.85,y));"+
+      "c+=1.1*smoothstep(0.90,0.985,dot(r,normalize(vec3(-0.5,0.8,0.55))));"+
       "c+=vec3(0.85,0.95,1.2)*smoothstep(0.88,0.97,dot(r,normalize(vec3(0.85,0.35,-0.45))));"+
       "c+=0.7*smoothstep(0.30,0.34,y)*(1.0-smoothstep(0.38,0.42,y))*smoothstep(-0.2,0.5,r.z);"+
       "c+=0.22*smoothstep(-0.9,-0.6,y)*(1.0-smoothstep(-0.6,-0.3,y));"+
@@ -674,26 +689,27 @@ window.PrimeViewer=function(host,cb){
     }
 
     /* ---------- pontos de ancoragem (hotspots) e vistas por peça ---------- */
+    var cupC=[pH[0]+dH[0]*3.41,pH[1]+dH[1]*3.41,0],ringC=[pH[0]+dH[0]*2.96,pH[1]+dH[1]*2.96,0.33];
     var ANCHOR={
       objetiva:[9.0,0.0,0.0],
-      luz:[1.265,-0.70,1.04],
-      tubo:[4.3,0.17,0.0],
-      lentes:[6.9,0.0,0.17],
-      window:[-1.45,0.0,0.0],
-      ocular:[-1.15,0.35,0.0]
+      luz:[pPost[0]+dPost[0]*0.6,pPost[1]+dPost[1]*0.6,pPost[2]+dPost[2]*0.6],
+      tubo:[4.3,0.13,0.0],
+      lentes:[6.9,0.0,0.13],
+      window:[cupC[0],cupC[1],0.0],
+      ocular:ringC
     };
     var VIEW={
       objetiva:{t:[8.6,0,0],yaw:1.15,pitch:0.14,dist:3.4,xr:0},
-      luz:{t:[1.3,-0.5,0.6],yaw:0.55,pitch:0.16,dist:4.4,xr:1},
+      luz:{t:[0.5,-0.55,0.3],yaw:0.55,pitch:0.16,dist:4.4,xr:1},
       tubo:{t:[5.0,0,0],yaw:-0.30,pitch:0.15,dist:6.2,xr:0},
       lentes:{t:[4.9,0,0],yaw:-0.25,pitch:0.32,dist:7.4,xr:1},
-      window:{t:[-1.4,0,0],yaw:-1.25,pitch:0.10,dist:3.2,xr:0},
-      ocular:{t:[-1.1,0,0],yaw:-0.85,pitch:0.25,dist:3.8,xr:0}
+      window:{t:[cupC[0],cupC[1],0],yaw:-1.25,pitch:-0.4,dist:3.4,xr:0},
+      ocular:{t:[ringC[0]-0.15,ringC[1],0],yaw:0.35,pitch:0.15,dist:3.8,xr:0}
     };
     var FOV=28*PI/180;
     var cssW=1,cssH=1,asp=1;
-    function overviewDist(){var th=Math.tan(FOV/2);return Math.max(12.8/(2*th*asp),6.6/(2*th))}
-    var OV={t:[3.55,-1.6,0],yaw:-0.5,pitch:0.2};
+    function overviewDist(){var th=Math.tan(FOV/2);return Math.max(13.6/(2*th*asp),5.2/(2*th))}
+    var OV={t:[3.1,-1.15,0],yaw:-0.5,pitch:0.2};
     var cam={t:OV.t.slice(),yaw:OV.yaw,pitch:OV.pitch,dist:16};
     var tgt={t:OV.t.slice(),yaw:OV.yaw,pitch:OV.pitch,dist:16};
     var sway=!reduce,ovMode=true,sel="objetiva",xr=0,xrT=0;
