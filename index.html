@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Prime Precision: manutenção preventiva, corretiva e preditiva de endoscópios em Ribeirão Preto/SP. Troca de tubo, objetiva e lentes, lapidação de fibra de luz e distal.">
+<meta property="og:title" content="Prime Precision">
+<meta property="og:description" content="Manutenção de endoscópios de precisão em Ribeirão Preto/SP.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/hero.jpg">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Prime Precision</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap">
+<style>
+body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{color-scheme:light}
+/* Layout: identidade da arte Prime (painel preto inclinado, vermelho, cinza metálico).
+   Foto de bancada ao lado do título, endoscópio interativo logo abaixo, serviço e orçamento em seguida. */
+:root{
+  --bg:#F3F4F5; --surface:#FFFFFF; --ink:#14181C; --muted:#4B545C; --line:#D9DDE0;
+  --red:#D60210; --red-ink:#B8010E; --black:#14181C; --on-black:#F4F5F6; --on-black-muted:#B5BDC4;
+  --steel:#C6CED3; --steel-dark:#8B98A1; --glass:#CFE6EE; --beam:#F5B942;
+  --btn-bg:#D60210; --btn-fg:#FFFFFF;
+  --font-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --font-body:"Barlow","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1114; --surface:#171B1F; --ink:#F1F3F4; --muted:#A3ADB5; --line:#2A3138;
+    --red-ink:#FF5560; --steel:#5C6B75; --steel-dark:#3F4C55; --glass:#1C4153; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1114; --surface:#171B1F; --ink:#F1F3F4; --muted:#A3ADB5; --line:#2A3138;
+  --red-ink:#FF5560; --steel:#5C6B75; --steel-dark:#3F4C55; --glass:#1C4153; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+h1,h2,h3{font-family:var(--font-display);line-height:1.02;letter-spacing:.005em;margin:0;text-transform:uppercase;font-weight:700;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:4px}
+.band{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.inner{max-width:1160px;margin:0 auto}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:20px;min-height:68px;flex-wrap:wrap;padding-block:8px}
+.brand{display:flex;flex-direction:column;gap:3px;line-height:1;text-decoration:none}
+.brand img{height:38px;width:auto;display:block}
+nav{display:flex;gap:24px;margin-left:auto;align-items:center;flex-wrap:wrap}
+nav a:not(.btn){text-decoration:none;font-weight:600;font-size:.95rem;color:var(--muted)}
+nav a:not(.btn):hover{color:var(--ink)}
+.theme{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;width:38px;height:38px;cursor:pointer;display:grid;place-items:center;font-size:1rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;font:600 1rem var(--font-body);padding:14px 24px;border-radius:8px;background:var(--btn-bg);color:var(--btn-fg);text-decoration:none;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-2px);background:#B8010E}
+.btn.ghost{background:transparent;color:var(--on-black);border:1.5px solid var(--on-black)}
+.btn.ghost:hover{background:rgba(255,255,255,.1)}
+.btn.sm{padding:10px 16px;font-size:.92rem}
+
+/* hero */
+.hero{padding-block:32px 0}
+.hero-card{position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);background:var(--black);border-radius:20px;overflow:hidden;min-height:480px}
+.hero-copy{position:relative;z-index:2;padding:48px 20px 48px 44px;display:flex;flex-direction:column;justify-content:center;color:var(--on-black)}
+.hero-copy h1{font-size:clamp(2.6rem,5.2vw,4.6rem);font-weight:800;line-height:.98}
+.hero-copy h1 em{font-style:normal;color:var(--red)}
+.hero-copy .rule{width:100%;max-width:300px;height:2px;background:var(--red);margin:22px 0 18px}
+.hero-copy .tech{font-family:var(--font-display);text-transform:uppercase;font-size:1.25rem;font-weight:500;letter-spacing:.03em;color:var(--on-black-muted)}
+.hero-copy .lead{margin-top:16px;color:var(--on-black-muted);max-width:46ch}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.hero-img{position:relative;margin-left:-70px}
+.hero-img .red,.hero-img img{position:absolute;inset:0;width:100%;height:100%}
+.hero-img .red{background:var(--red);clip-path:polygon(15% 0,100% 0,100% 100%,0 100%)}
+.hero-img img{object-fit:cover;object-position:60% 40%;clip-path:polygon(calc(15% + 6px) 0,100% 0,100% 100%,6px 100%)}
+
+/* faixa */
+.ticker{margin-top:28px;overflow:hidden;border-block:1px solid var(--line);background:var(--surface)}
+.ticker-track{display:flex;width:max-content;animation:tick 38s linear infinite}
+.ticker span{font-family:var(--font-display);text-transform:uppercase;font-weight:600;letter-spacing:.05em;font-size:1.05rem;padding:14px 28px;white-space:nowrap;display:flex;align-items:center;gap:28px}
+.ticker span::after{content:"";width:8px;height:22px;background:var(--red);transform:skewX(-20deg)}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* headings de seção */
+section{padding-block:76px}
+.kicker{display:flex;align-items:center;gap:10px;font-family:var(--font-display);text-transform:uppercase;font-weight:600;letter-spacing:.06em;color:var(--red-ink);font-size:1.05rem;margin-bottom:12px}
+.kicker::before{content:"";width:22px;height:12px;background:var(--red);transform:skewX(-20deg)}
+.sec-title{font-size:clamp(2.1rem,4.4vw,3.4rem)}
+.sec-lead{color:var(--muted);margin-top:14px;max-width:56ch}
+
+/* scope */
+.scope-wrap{margin-top:32px;border:1px solid var(--line);background:var(--surface);border-radius:18px;overflow:hidden}
+.scope-scroll{overflow-x:auto;padding:28px 12px 8px}
+svg.scope{display:block;min-width:700px;width:100%;height:auto}
+.scope .steel{fill:var(--steel);stroke:var(--steel-dark);stroke-width:1.5}
+.scope .glass{fill:var(--glass);stroke:var(--steel-dark);stroke-width:1.5}
+.scope .line{stroke:var(--steel-dark);stroke-width:1.2;fill:none}
+.scope .beam{stroke:var(--beam);stroke-width:3;fill:none;stroke-linecap:round;stroke-dasharray:18 22;animation:flow 1.6s linear infinite;filter:drop-shadow(0 0 4px var(--beam))}
+.scope .glow{fill:var(--beam);opacity:.35;animation:pulse 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.scope .tube-draw{clip-path:inset(0 100% 0 0);animation:draw 1.6s .2s cubic-bezier(.3,.7,.2,1) forwards}
+.scope .part{cursor:pointer}
+.scope .part .hit{fill:transparent}
+.scope .part .ring{fill:none;stroke:var(--red);stroke-width:2.5;stroke-dasharray:5 5;opacity:0;transition:opacity .2s}
+.scope .part:hover .ring,.scope .part:focus-visible .ring{opacity:.6}
+.scope .part.on .ring{opacity:1;stroke-dasharray:none}
+.scope .lbl{font:600 13px var(--font-body);fill:var(--muted)}
+.scope .part.on .lbl{fill:var(--red-ink)}
+@keyframes flow{to{stroke-dashoffset:-40}}
+@keyframes pulse{0%,100%{transform:scale(.8);opacity:.2}50%{transform:scale(1.5);opacity:.5}}
+@keyframes draw{to{clip-path:inset(0 0 0 0)}}
+.chips{display:flex;gap:8px;flex-wrap:wrap;padding:8px 20px 20px}
+.chip{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:8px 14px;font:500 .9rem var(--font-body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--black);color:var(--on-black);border-color:var(--black)}
+.detail{border-top:1px solid var(--line);padding:24px 24px 28px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end}
+.detail h3{font-size:1.9rem}
+.detail p{color:var(--muted);margin-top:8px;max-width:60ch}
+.detail .what{font-size:.85rem;color:var(--red-ink);font-weight:600;margin-bottom:6px}
+
+/* serviços */
+.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,8fr);gap:48px}
+.rows{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 20px;padding:26px 0;border-bottom:1px solid var(--line);align-items:start}
+.row h3{font-size:1.6rem}
+.row p{color:var(--muted);margin-top:6px;grid-column:1}
+.tag{font-size:.85rem;font-weight:600;color:var(--red-ink);border:1px solid var(--red);border-radius:999px;padding:4px 12px;white-space:nowrap;text-decoration:none}
+
+/* passos */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:36px;border-top:1px solid var(--line)}
+.step{padding:24px 22px 8px 0}
+.step b{font-family:var(--font-display);font-size:2.6rem;color:var(--red);line-height:1;display:block;margin-bottom:8px;font-weight:800}
+.step h3{font-size:1.4rem;margin-bottom:8px}
+.step p{color:var(--muted);font-size:.98rem}
+
+/* qualidade (faixa preta) */
+.quality{background:var(--black);color:var(--on-black)}
+.quality .kicker{color:#FF5560}
+.q3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;margin-top:36px}
+.q3 > div{border-top:2px solid var(--red);padding-top:18px}
+.q3 h3{font-size:1.6rem;margin-bottom:10px}
+.q3 p{color:var(--on-black-muted)}
+
+/* faq */
+.faq{margin-top:32px;border-top:1px solid var(--line);max-width:820px}
+details{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;padding:20px 40px 20px 0;font-family:var(--font-display);text-transform:uppercase;font-weight:700;font-size:1.35rem;letter-spacing:.01em;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:1.8rem;color:var(--red);transition:transform .2s}
+details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+details p{padding:0 0 22px;color:var(--muted);max-width:64ch}
+
+/* orçamento */
+.quote{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start}
+.contact{margin-top:28px;display:grid;gap:18px;color:var(--muted)}
+.contact b{display:block;color:var(--ink);font-weight:600}
+.contact .sel{user-select:all}
+form{display:grid;gap:14px;background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--red);border-radius:14px;padding:24px}
+label{display:grid;gap:6px;font-weight:600;font-size:.92rem}
+input,select,textarea{font:400 1rem var(--font-body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 14px;width:100%;min-width:0}
+textarea{min-height:92px;resize:vertical}
+.out{display:none;gap:12px;border-top:1px dashed var(--line);padding-top:16px}
+.out.show{display:grid}
+.out pre{white-space:pre-wrap;word-break:break-word;margin:0;font:400 .95rem/1.5 var(--font-body);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:14px}
+.out .acts{display:flex;gap:10px;flex-wrap:wrap}
+.out small{color:var(--muted)}
+.out .btn.ghost{color:var(--ink);border-color:var(--ink)}
+.out .btn.ghost:hover{background:var(--bg)}
+
+footer{background:var(--black);color:var(--on-black-muted);padding-block:32px;font-size:.92rem}
+footer .inner{display:flex;gap:16px 32px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+footer a{color:var(--on-black)}
+
+/* whatsapp flutuante */
+.wa-float{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:25;background:#1FA855;color:#fff;border-radius:999px;padding:12px 18px;font-weight:600;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.25);display:flex;gap:8px;align-items:center}
+.wa-float:hover{background:#178A45}
+
+@media (max-width:900px){
+  .hero-card{grid-template-columns:minmax(0,1fr);min-height:0}
+  .hero-copy{padding:36px 22px}
+  .hero-img{margin-left:0;height:300px}
+  .hero-img .red{clip-path:none;height:6px;bottom:auto}
+  .hero-img img{clip-path:none;top:6px;height:calc(100% - 6px)}
+  .split,.quote{grid-template-columns:minmax(0,1fr);gap:32px}
+  .q3{grid-template-columns:minmax(0,1fr);gap:28px}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .detail{grid-template-columns:minmax(0,1fr)}
+  nav a.hide{display:none}
+  section{padding-block:56px}
+}
+@media (max-width:520px){
+  .steps{grid-template-columns:minmax(0,1fr)}
+  .wa-float span{display:none}
+}
+@media (prefers-reduced-motion: reduce){
+  .scope .beam,.scope .glow,.ticker-track{animation:none}
+  .scope .tube-draw{animation:none;clip-path:none}
+  .btn,summary::after{transition:none}
+}
+</style>
+</head>
+<body>
+<header class="band">
+  <div class="inner bar">
+    <a class="brand" href="#topo" aria-label="Prime Endoscope science vision, início">
+      <img src="assets/logo.png" alt="Prime" width="200" height="38">
+    </a>
+    <nav aria-label="Principal">
+      <a class="hide" href="#endoscopio">Endoscópio</a>
+      <a class="hide" href="#servicos">Serviços</a>
+      <a class="hide" href="#faq">Dúvidas</a>
+      <a class="hide" href="#orcamento">Contato</a>
+      <a class="btn sm" href="#orcamento">Pedir orçamento</a>
+      <button class="theme" id="theme" type="button" aria-label="Alternar tema claro e escuro">◐</button>
+    </nav>
+  </div>
+</header>
+
+<main id="topo">
+<div class="band">
+  <div class="inner hero">
+    <div class="hero-card">
+      <div class="hero-copy">
+        <h1>Manutenção de endoscópios de <em>precisão</em></h1>
+        <div class="rule"></div>
+        <p class="tech">Tecnologia para ambientes cirúrgicos</p>
+        <p class="lead">Trocamos tubo, objetiva e lentes, e lapidamos fibra de luz e distal. As lentes são originais e compatíveis com os principais fabricantes europeus.</p>
+        <div class="cta">
+          <a class="btn" href="#orcamento">Pedir orçamento</a>
+          <a class="btn ghost" href="#endoscopio">Explorar o endoscópio</a>
+        </div>
+      </div>
+      <div class="hero-img">
+        <div class="red"></div>
+        <img src="assets/hero.jpg" alt="Técnico apresenta endoscópios rígidos sobre a bancada, com torres de vídeo ao fundo" width="1000" height="660">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ticker" aria-label="Diferenciais">
+  <div class="ticker-track">
+    <span>Lentes originais compatíveis com fabricantes europeus</span>
+    <span>Manutenção preventiva, corretiva e preditiva</span>
+    <span>Suporte técnico especializado</span>
+    <span>Ribeirão Preto/SP</span>
+    <span aria-hidden="true">Lentes originais compatíveis com fabricantes europeus</span>
+    <span aria-hidden="true">Manutenção preventiva, corretiva e preditiva</span>
+    <span aria-hidden="true">Suporte técnico especializado</span>
+    <span aria-hidden="true">Ribeirão Preto/SP</span>
+  </div>
+</div>
+
+<section id="endoscopio" class="band">
+  <div class="inner">
+    <div class="kicker">Onde atuamos</div>
+    <h2 class="sec-title">Clique em uma peça e veja o serviço</h2>
+    <p class="sec-lead">Cada parte do endoscópio tem um reparo específico. Escolha a peça com problema e peça o orçamento já com o serviço indicado.</p>
+
+    <div class="scope-wrap">
+      <div class="scope-scroll">
+        <svg class="scope" id="scope" viewBox="0 0 1100 250" role="group" aria-label="Desenho de um endoscópio. Toque em uma peça para ver o serviço.">
+          <g class="tube-draw">
+            <rect class="steel" x="262" y="118" width="700" height="24" rx="3"/>
+            <path class="line" d="M262 130H962"/>
+            <rect class="steel" x="112" y="90" width="152" height="80" rx="16"/>
+            <path class="line" d="M140 100V160M150 100V160"/>
+            <rect class="steel" x="172" y="44" width="28" height="50" rx="5"/>
+            <rect class="steel" x="166" y="36" width="40" height="12" rx="4"/>
+            <rect class="steel" x="962" y="113" width="46" height="34" rx="6"/>
+            <g class="glass">
+              <ellipse cx="330" cy="130" rx="5" ry="8"/><ellipse cx="420" cy="130" rx="5" ry="8"/>
+              <ellipse cx="510" cy="130" rx="5" ry="8"/><ellipse cx="600" cy="130" rx="5" ry="8"/>
+              <ellipse cx="690" cy="130" rx="5" ry="8"/><ellipse cx="780" cy="130" rx="5" ry="8"/>
+              <ellipse cx="870" cy="130" rx="5" ry="8"/>
+            </g>
+            <rect class="steel" x="40" y="98" width="72" height="64" rx="12"/>
+            <rect class="glass" x="104" y="104" width="10" height="52" rx="2"/>
+            <path class="glass" d="M1008 117 Q1034 130 1008 143Z"/>
+          </g>
+          <path class="beam" d="M186 52V130H1004"/>
+          <circle class="glow" cx="1022" cy="130" r="16"/>
+
+          <g class="part" data-id="ocular" tabindex="0" role="button" aria-label="Eyepiece">
+            <rect class="hit" x="28" y="80" width="64" height="100"/>
+            <rect class="ring" x="30" y="90" width="92" height="80" rx="16"/>
+            <text class="lbl" x="76" y="206" text-anchor="middle">Eyepiece</text>
+          </g>
+          <g class="part" data-id="window" tabindex="0" role="button" aria-label="Window proximal">
+            <rect class="hit" x="96" y="80" width="30" height="100"/>
+            <rect class="ring" x="98" y="98" width="24" height="64" rx="6"/>
+            <text class="lbl" x="124" y="228" text-anchor="middle">Window proximal</text>
+          </g>
+          <g class="part" data-id="luz" tabindex="0" role="button" aria-label="Fibra de luz">
+            <rect class="hit" x="150" y="20" width="72" height="80"/>
+            <rect class="ring" x="156" y="26" width="60" height="76" rx="10"/>
+            <text class="lbl" x="232" y="64">Fibra de luz</text>
+          </g>
+          <g class="part" data-id="tubo" tabindex="0" role="button" aria-label="Tubo">
+            <rect class="hit" x="270" y="96" width="680" height="68"/>
+            <rect class="ring" x="268" y="108" width="690" height="44" rx="8"/>
+            <text class="lbl" x="600" y="190" text-anchor="middle">Tubo</text>
+          </g>
+          <g class="part" data-id="lentes" tabindex="0" role="button" aria-label="Lentes">
+            <rect class="hit" x="310" y="70" width="580" height="30"/>
+            <rect class="ring" x="316" y="116" width="570" height="28" rx="14"/>
+            <text class="lbl" x="600" y="86" text-anchor="middle">Lentes</text>
+          </g>
+          <g class="part" data-id="objetiva" tabindex="0" role="button" aria-label="Objetiva e distal">
+            <rect class="hit" x="970" y="90" width="90" height="80"/>
+            <rect class="ring" x="958" y="100" width="94" height="60" rx="14"/>
+            <text class="lbl" x="1008" y="190" text-anchor="middle">Objetiva e distal</text>
+          </g>
+        </svg>
+      </div>
+      <div class="chips" id="chips"></div>
+      <div class="detail">
+        <div>
+          <div class="what" id="d-what"></div>
+          <h3 id="d-title"></h3>
+          <p id="d-text"></p>
+        </div>
+        <button class="btn sm" id="d-cta" type="button">Orçamento deste serviço</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="servicos" class="band" style="padding-top:0">
+  <div class="inner split">
+    <div>
+      <div class="kicker">Serviços</div>
+      <h2 class="sec-title">O que fazemos</h2>
+      <p class="sec-lead">Manutenção preventiva, corretiva e preditiva em equipamentos médicos, com foco em endoscópios.</p>
+    </div>
+    <div class="rows">
+      <div class="row">
+        <h3>Manutenção em endoscópios</h3><a class="tag" href="#orcamento" data-service="Manutenção em endoscópios">Solicitar orçamento</a>
+        <p>Troca de tubo, troca de objetiva, lapidação da fibra de luz, lapidação da distal, troca da eyepiece, substituição da window proximal e substituição de lentes.</p>
+      </div>
+      <div class="row">
+        <h3>Consultoria técnica</h3><a class="tag" href="#orcamento" data-service="Consultoria técnica">Sob consulta</a>
+        <p>Avaliação técnica do seu equipamento e orientação sobre o melhor caminho de reparo.</p>
+      </div>
+      <div class="row">
+        <h3>Equipamentos de teste</h3><span class="tag">Linha Prime</span>
+        <p>De multímetros a osciloscópios, para as medições mais complexas.</p>
+      </div>
+      <div class="row">
+        <h3>Instrumentos de medição</h3><span class="tag">Alta precisão</span>
+        <p>Seleção de instrumentos para resultados confiáveis e consistentes em cada aplicação.</p>
+      </div>
+      <div class="row">
+        <h3>Acessórios especializados</h3><span class="tag">Complementos</span>
+        <p>Acessórios que completam os equipamentos de teste e medição.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" style="padding-top:0">
+  <div class="inner">
+    <div class="kicker">Como funciona</div>
+    <h2 class="sec-title">Do pedido ao endoscópio revisado</h2>
+    <div class="steps">
+      <div class="step"><b>1</b><h3>Conte o problema</h3><p>Informe o serviço e o modelo do endoscópio pelo formulário ou pelo WhatsApp.</p></div>
+      <div class="step"><b>2</b><h3>Receba o orçamento</h3><p>Nossa equipe avalia o pedido e responde com o orçamento.</p></div>
+      <div class="step"><b>3</b><h3>Aprove o serviço</h3><p>Com a aprovação, o reparo é programado.</p></div>
+      <div class="step"><b>4</b><h3>Receba revisado</h3><p>O equipamento volta com a manutenção concluída.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="qualidade" class="band quality">
+  <div class="inner">
+    <div class="kicker">Nosso padrão</div>
+    <h2 class="sec-title">Precisão que se vê na imagem final</h2>
+    <div class="q3">
+      <div><h3>Inovação em cada detalhe</h3><p>Equipamentos e gabaritos de análise técnica de última geração, pensados para testes e medições exigentes.</p></div>
+      <div><h3>Qualidade superior</h3><p>Compromisso com a excelência. Cada serviço segue os mais altos padrões de qualidade e desempenho.</p></div>
+      <div><h3>Suporte especializado</h3><p>Acompanhamento técnico para você obter o máximo de qualidade e precisão nas suas medições.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="band">
+  <div class="inner">
+    <div class="kicker">Dúvidas</div>
+    <h2 class="sec-title">Perguntas frequentes</h2>
+    <div class="faq">
+      <details open><summary>Quais reparos vocês fazem?</summary><p>Troca de tubo, troca de objetiva, lapidação da fibra de luz, lapidação da distal, troca da eyepiece, substituição da window proximal e substituição de lentes.</p></details>
+      <details><summary>As lentes são originais?</summary><p>Sim. Usamos lentes originais compatíveis com os principais fabricantes europeus.</p></details>
+      <details><summary>Como peço um orçamento?</summary><p>Preencha o formulário abaixo, que monta a mensagem para o WhatsApp, ou fale direto pelo telefone (16) 99223-7907 ou pelo e-mail primevideocirurgia@outlook.com.</p></details>
+      <details><summary>Vocês fazem consultoria técnica?</summary><p>Sim. A consultoria é sob consulta. Escolha "Consultoria técnica" no formulário de orçamento.</p></details>
+      <details><summary>Onde vocês ficam?</summary><p>Rua Odila Rosa Silva Vianna, 615, Bonfim Paulista / Jardim João Pontin, Ribeirão Preto/SP, CEP 14110-000.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="orcamento" class="band" style="padding-top:0">
+  <div class="inner quote">
+    <div>
+      <div class="kicker">Contato</div>
+      <h2 class="sec-title">Peça seu orçamento</h2>
+      <p class="sec-lead">Conte qual serviço você precisa e o modelo do equipamento. Montamos a mensagem e você envia pelo WhatsApp.</p>
+      <div class="contact">
+        <div><b>Telefone e WhatsApp</b><span class="sel">(16) 99223-7907</span></div>
+        <div><b>E-mail</b><span class="sel">primevideocirurgia@outlook.com</span></div>
+        <div><b>Endereço</b>Rua Odila Rosa Silva Vianna, 615<br>Bonfim Paulista / Jardim João Pontin<br>Ribeirão Preto/SP, CEP 14110-000</div>
+        <div><b>Instagram</b><a href="https://www.instagram.com/primeprecisionrp/" target="_blank" rel="noopener">@primeprecisionrp</a></div>
+      </div>
+    </div>
+    <form id="form" novalidate>
+      <label for="f-servico">Serviço
+        <select id="f-servico">
+          <option>Troca de objetiva</option>
+          <option>Lapidação da distal</option>
+          <option>Lapidação da fibra de luz</option>
+          <option>Troca de tubo</option>
+          <option>Substituição de lentes</option>
+          <option>Substituição da window proximal</option>
+          <option>Troca da eyepiece</option>
+          <option>Manutenção em endoscópios</option>
+          <option>Consultoria técnica</option>
+        </select>
+      </label>
+      <label for="f-equip">Marca e modelo do endoscópio
+        <input id="f-equip" type="text" placeholder="Ex.: marca, modelo, diâmetro">
+      </label>
+      <label for="f-msg">O que está acontecendo
+        <textarea id="f-msg" placeholder="Ex.: imagem escura, tubo amassado, lente quebrada"></textarea>
+      </label>
+      <label for="f-nome">Seu nome
+        <input id="f-nome" type="text" autocomplete="name">
+      </label>
+      <button class="btn" type="submit">Montar mensagem</button>
+      <div class="out" id="out" aria-live="polite">
+        <pre id="out-text"></pre>
+        <div class="acts">
+          <a class="btn sm" id="wa" href="#" target="_blank" rel="noopener">Abrir no WhatsApp</a>
+          <button class="btn sm ghost" id="copy" type="button">Copiar mensagem</button>
+        </div>
+        <small>Se o WhatsApp não abrir, copie a mensagem e envie para (16) 99223-7907.</small>
+      </div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="band">
+  <div class="inner">
+    <span>Prime Instrumentos de Precisão · Ribeirão Preto/SP</span>
+    <a href="https://www.instagram.com/primeprecisionrp/" target="_blank" rel="noopener">Instagram @primeprecisionrp</a>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5516992237907" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.2 14.1c-.2.6-1.300 1.200-1.800 1.200-.5.1-1 .2-3.300-.7-2.800-1.100-4.600-4-4.700-4.200-.1-.2-1.100-1.500-1.100-2.800s.7-2 1-2.300c.2-.3.500-.3.700-.3h.5c.2 0 .4 0 .6.500l.8 2c.1.200.1.300 0 .5l-.3.500-.4.400c-.1.100-.3.300-.1.600.2.300.8 1.300 1.700 2.100 1.100 1 2.100 1.300 2.400 1.400.3.100.5.100.6-.1l.9-1.100c.2-.3.400-.2.600-.1l1.900.9c.3.100.5.200.5.300.1.100.1.700-.100 1.200Z"/></svg>
+  <span>WhatsApp</span>
+</a>
+
+<script>
+(function(){
+  var parts = {
+    objetiva:{chip:"Objetiva e distal",what:"Ponta do endoscópio",title:"Troca de objetiva e lapidação da distal",text:"A objetiva forma a imagem na ponta do endoscópio. Fazemos a troca da objetiva e a lapidação da face distal.",service:"Troca de objetiva"},
+    luz:{chip:"Fibra de luz",what:"Iluminação",title:"Lapidação da fibra de luz",text:"A fibra de luz leva a iluminação da fonte até a ponta. Fazemos a lapidação da fibra de luz.",service:"Lapidação da fibra de luz"},
+    tubo:{chip:"Tubo",what:"Corpo longo do endoscópio",title:"Troca de tubo",text:"O tubo protege o conjunto óptico ao longo do endoscópio. Fazemos a troca de tubo.",service:"Troca de tubo"},
+    lentes:{chip:"Lentes",what:"Sistema óptico",title:"Substituição de lentes",text:"Usamos lentes originais compatíveis com os principais fabricantes europeus.",service:"Substituição de lentes"},
+    window:{chip:"Window proximal",what:"Lado do observador",title:"Substituição da window proximal",text:"A window proximal é a janela de vidro do lado da ocular. Fazemos a substituição.",service:"Substituição da window proximal"},
+    ocular:{chip:"Eyepiece",what:"Ocular",title:"Troca da eyepiece",text:"A eyepiece é a ocular por onde a imagem é observada. Fazemos a troca.",service:"Troca da eyepiece"}
+  };
+  var order=["objetiva","luz","tubo","lentes","window","ocular"];
+  var current="objetiva";
+  var chips=document.getElementById("chips");
+  var scope=document.getElementById("scope");
+  order.forEach(function(id){
+    var b=document.createElement("button");
+    b.type="button";b.className="chip";b.dataset.id=id;b.textContent=parts[id].chip;
+    b.addEventListener("click",function(){select(id)});
+    chips.appendChild(b);
+  });
+  function select(id){
+    current=id;var p=parts[id];
+    document.getElementById("d-what").textContent=p.what;
+    document.getElementById("d-title").textContent=p.title;
+    document.getElementById("d-text").textContent=p.text;
+    Array.prototype.forEach.call(chips.children,function(c){c.setAttribute("aria-pressed",c.dataset.id===id?"true":"false")});
+    Array.prototype.forEach.call(scope.querySelectorAll(".part"),function(g){g.classList.toggle("on",g.dataset.id===id)});
+  }
+  Array.prototype.forEach.call(scope.querySelectorAll(".part"),function(g){
+    g.addEventListener("click",function(){select(g.dataset.id)});
+    g.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();select(g.dataset.id)}});
+  });
+  select("objetiva");
+
+  var sel=document.getElementById("f-servico");
+  function goQuote(service){
+    if(service){
+      Array.prototype.forEach.call(sel.options,function(o){if(o.text.toLowerCase()===service.toLowerCase()){sel.selectedIndex=o.index}});
+    }
+    document.getElementById("orcamento").scrollIntoView({behavior:"smooth"});
+    setTimeout(function(){document.getElementById("f-equip").focus({preventScroll:true})},500);
+  }
+  document.getElementById("d-cta").addEventListener("click",function(){goQuote(parts[current].service)});
+  Array.prototype.forEach.call(document.querySelectorAll("[data-service]"),function(a){
+    a.addEventListener("click",function(e){e.preventDefault();goQuote(a.dataset.service)});
+  });
+
+  var form=document.getElementById("form"),out=document.getElementById("out"),txt=document.getElementById("out-text"),wa=document.getElementById("wa");
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    var v=function(id){return document.getElementById(id).value.trim()};
+    var lines=["Olá, Prime Precision! Gostaria de um orçamento.","Serviço: "+sel.options[sel.selectedIndex].text];
+    if(v("f-equip"))lines.push("Equipamento: "+v("f-equip"));
+    if(v("f-msg"))lines.push("Situação: "+v("f-msg"));
+    if(v("f-nome"))lines.push("Meu nome: "+v("f-nome"));
+    var msg=lines.join("\n");
+    txt.textContent=msg;
+    wa.href="https://wa.me/5516992237907?text="+encodeURIComponent(msg);
+    out.classList.add("show");
+  });
+  document.getElementById("copy").addEventListener("click",function(){
+    var btn=this,msg=txt.textContent;
+    function done(ok){btn.textContent=ok?"Copiado":"Selecione o texto e copie";setTimeout(function(){btn.textContent="Copiar mensagem"},2000)}
+    function manual(){var r=document.createRange();r.selectNodeContents(txt);var s=window.getSelection();s.removeAllRanges();s.addRange(r);done(false)}
+    try{navigator.clipboard.writeText(msg).then(function(){done(true)},manual)}catch(err){manual()}
+  });
+
+  var root=document.documentElement;
+  document.getElementById("theme").addEventListener("click",function(){
+    var dark=root.dataset.theme?root.dataset.theme==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme=dark?"light":"dark";
+  });
+})();
+</script>
+
+</body>
+</html>
