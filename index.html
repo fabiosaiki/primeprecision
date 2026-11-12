@@ -79,6 +79,9 @@ html{scroll-padding-top:84px}
 .hero-copy h1{font-size:clamp(2.2rem,3.7vw,3.4rem);font-weight:800;line-height:1.02;letter-spacing:.01em}
 .hero-copy h1 span{display:block;white-space:nowrap}
 .hero-copy h1 em{font-style:normal;color:var(--red)}
+.stk{display:grid}
+.stk-i{grid-area:1/1;visibility:hidden;min-width:0}
+.stk-i.on{visibility:visible}
 .hero-copy .rule{width:100%;max-width:300px;height:2px;background:var(--red);margin:22px 0 18px}
 .hero-copy .tech{font-family:var(--font-display);text-transform:uppercase;font-size:1.25rem;font-weight:500;letter-spacing:.03em;color:var(--on-black-muted)}
 .hero-copy .lead{margin-top:16px;color:var(--on-black-muted);max-width:46ch}
@@ -673,6 +676,25 @@ footer a{color:var(--on-black)}
     Array.prototype.forEach.call(document.querySelectorAll("option"),function(o){o.dataset.pt=o.textContent.trim()});
   })();
 
+  /* topo: os três idiomas ficam empilhados na mesma célula; só um aparece.
+     A altura é sempre a do texto mais longo, com qualquer fonte ou largura. */
+  (function(){
+    function build(el,html){
+      el.textContent="";el.classList.add("stk");
+      ["pt","en","de"].forEach(function(l){
+        var s=document.createElement("span");s.className="stk-i";s.dataset.l=l;s.innerHTML=html(l);el.appendChild(s);
+      });
+    }
+    build(h1,function(l){return H1[l]});
+    [".hero-copy .tech",".hero-copy .lead"].forEach(function(sel){
+      var el=document.querySelector(sel);
+      var i=textNodes.findIndex(function(x){return x.n.parentNode===el});
+      if(i<0)return;
+      var pt=textNodes[i].pt;textNodes.splice(i,1);
+      build(el,function(l){return l==="pt"?pt:maps[l][pt]});
+    });
+  })();
+
   function renderChips(){
     chips.innerHTML="";
     order.forEach(function(id){
@@ -700,7 +722,7 @@ footer a{color:var(--on-black)}
     lang=l;
     textNodes.forEach(function(o){o.n.nodeValue=o.pre+tr(o.pt)+o.post});
     attrs.forEach(function(o){o.el.setAttribute(o.a,tr(o.pt))});
-    h1.innerHTML=H1[l];
+    Array.prototype.forEach.call(document.querySelectorAll(".stk-i"),function(i){var on=i.dataset.l===l;i.classList.toggle("on",on);i.setAttribute("aria-hidden",on?"false":"true")});
     document.documentElement.lang={pt:"pt-BR",en:"en",de:"de"}[l];
     Array.prototype.forEach.call(langBtns,function(b){b.setAttribute("aria-pressed",b.dataset.l===l?"true":"false")});
     renderChips();select(current);
@@ -775,28 +797,6 @@ footer a{color:var(--on-black)}
     else{var nl=(navigator.language||"pt").slice(0,2).toLowerCase();if(nl==="en"||nl==="de")start=nl}
   }catch(e){}
   apply(start);
-
-  /* mantém o topo com a mesma altura nos três idiomas */
-  function equalize(){
-    var cur=lang;
-    [{el:h1,html:true},{el:document.querySelector(".hero-copy .tech")},{el:document.querySelector(".hero-copy .lead")}].forEach(function(o){
-      var tn=null;
-      if(!o.html){tn=textNodes.filter(function(x){return x.n.parentNode===o.el})[0];if(!tn)return}
-      o.el.style.minHeight="";
-      var max=0;
-      ["pt","en","de"].forEach(function(l){
-        if(o.html)o.el.innerHTML=H1[l];
-        else tn.n.nodeValue=tn.pre+(l==="pt"?tn.pt:maps[l][tn.pt])+tn.post;
-        max=Math.max(max,o.el.offsetHeight);
-      });
-      if(o.html)o.el.innerHTML=H1[cur];
-      else tn.n.nodeValue=tn.pre+tr(tn.pt)+tn.post;
-      o.el.style.minHeight=max+"px";
-    });
-  }
-  equalize();
-  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(equalize);
-  var rz;window.addEventListener("resize",function(){clearTimeout(rz);rz=setTimeout(equalize,150)});
 })();
 </script>
 
