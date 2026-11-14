@@ -587,7 +587,7 @@ window.PrimeViewer=function(host,cb){
     /* ---------- materiais ---------- */
     var MAT={
       steel:{base:[0.74,0.76,0.79],metal:1,rough:0.12},
-      gun:{base:[0.46,0.47,0.50],metal:1,rough:0.24},blk:{base:[0.10,0.10,0.115],metal:0.7,rough:0.32},
+      gun:{base:[0.56,0.57,0.60],metal:1,rough:0.24},blk:{base:[0.10,0.10,0.115],metal:0.7,rough:0.32},
       bright:{base:[0.80,0.81,0.83],metal:1,rough:0.14},
       dark:{base:[0.30,0.31,0.34],metal:1,rough:0.35},
       rubber:{base:[0.045,0.045,0.05],metal:0,rough:0.70},
@@ -635,14 +635,14 @@ window.PrimeViewer=function(host,cb){
         quad([p[0],p[1],ht],[q[0],q[1],ht],[q[0],q[1],-ht],[p[0],p[1],-ht],nm)}
       return{v:new Float32Array(v),i:new Uint16Array(idx)};
     }
-    var xT=12.4,rR=0.20,yR=0.10; /* ponta da haste, raio da haste, deslocamento da haste no encaixe */
+    var xT=12.4,rR=0.17,yR=0.15; /* ponta da haste, raio da haste, altura do eixo da haste */
     /* haste */
     addD([[2.40,rR],[xT-0.3,rR]],56,[0,yR,0],X,"steel","tubo","tube");
     /* ponta: parede grossa, boca cortada na diagonal (o lado das fibras avança mais), furo grande e três furos de fibra */
     (function(){
       var tb=0.30,ny=Math.sqrt(1+tb*tb),fn=[1/ny,tb/ny];
       function xc(y){return xT-(y-(yR-rR))*tb}
-      var hole=[{y:yR+0.026,z:0,r:0.149},{y:yR-0.15,z:-0.084,r:0.022},{y:yR-0.15,z:0,r:0.022},{y:yR-0.15,z:0.084,r:0.022}];
+      var hole=[{y:yR+0.022,z:0,r:0.127},{y:yR-0.128,z:-0.071,r:0.019},{y:yR-0.128,z:0,r:0.019},{y:yR-0.128,z:0.071,r:0.019}];
       var nt=96,v=[],idx=[],i,j,a0;
       for(j=0;j<=nt;j++){var th=j/nt*2*PI,c=Math.cos(th),s=Math.sin(th),y=yR+rR*c;
         v.push((xT-0.3)*K,y*K,rR*s*K,0,c,s,xc(y)*K,y*K,rR*s*K,0,c,s)}
@@ -664,40 +664,43 @@ window.PrimeViewer=function(host,cb){
         addD([[xd,h.r],[xd,0]],32,[0,h.y,h.z],X,"dark","objetiva")});
     })();
     /* traseira: anel rosqueado e fundo com furo */
-    var thr=[[-2.07,0.20],[-2.07,0.43]];
-    for(var q=0;q<5;q++){var xa=-2.07+q*0.045;thr.push([xa+0.018,0.43],[xa+0.018,0.412],[xa+0.045,0.412],[xa+0.045,0.43])}
-    thr.push([-1.86,0.43],[-1.86,0.46],[-1.82,0.50],[-1.80,0.50],[-1.80,0.0]);
+    var thr=[[-2.10,0.30],[-2.10,0.40],[-2.08,0.44],[-2.05,0.46]];
+    for(var q=0;q<6;q++){var xa=-2.05+q*0.03;thr.push([xa+0.012,0.47],[xa+0.024,0.462],[xa+0.03,0.47])}
+    thr.push([-1.87,0.47],[-1.87,0.44],[-1.83,0.44],[-1.83,0.50],[-1.80,0.50],[-1.80,0.0]);
     addD(thr,64,[0,0,0],X,"gun",null);
-    addD([[-2.071,0.20],[-1.97,0.20],[-1.97,0.17]],40,[0,0,0],X,"dark",null);
-    addD([[-1.97,0.17],[-1.97,0.09]],36,[0,0,0],X,"steel",null);
-    addD([[-1.97,0.09],[-1.87,0.09],[-1.87,0]],28,[0,0,0],X,"dark",null);
+    addD([[-2.101,0.30],[-2.13,0.30],[-2.13,0.21],[-2.101,0.21]],48,[0,0,0],X,"steel",null);
+    addD([[-2.101,0.21],[-2.06,0.21],[-2.06,0.15]],40,[0,0,0],X,"dark",null);
+    addD([[-2.06,0.15],[-2.06,0.08]],36,[0,0,0],X,"steel",null);
+    addD([[-2.06,0.08],[-1.95,0.08],[-1.95,0]],28,[0,0,0],X,"dark",null);
     /* corpo */
     (function(g){addG(g[0],"gun",null);addG(g[1],"bright",null)})(bodyMesh());
     /* colar da frente, onde entra a haste */
-    addD([[1.95,0.35],[2.50,0.35],[2.58,0.31],[2.58,0.21]],64,[0,0.15,0],X,"gun",null);
-    addD([[2.58,0.21],[2.45,0.21],[2.45,0]],48,[0,0.15,0],X,"dark",null);
+    addD([[1.95,0.35],[2.50,0.35],[2.58,0.31],[2.58,0.185]],64,[0,0.15,0],X,"gun",null);
+    addD([[2.58,0.185],[2.45,0.185],[2.45,0]],48,[0,0.15,0],X,"dark",null);
     /* placa triangular de lados retos entre o cilindro e o tubo da ocular */
-    addG(slab([[-1.31,-0.42],[-0.66,-1.0],[-0.30,-0.42]],0.26),"gun",null);
+    addG(slab([[-1.36,-0.42],[-0.70,-1.05],[-0.22,-0.42]],0.32),"gun",null);
     /* parafusos de borboleta: saem para trás, ao longo do corpo, um de cada lado */
-    var sd=norm([-0.92,-0.26,0.30]),scr=[[-0.25,0.09],[0.15,0.09],[0.70,0.15],[0.72,0.19],[0.80,0.19],[0.80,0.16],[0.84,0.16],[0.84,0.195],[1.02,0.195],[1.04,0.17],[1.04,0.0]],sp=[0.53,-0.18,0.50];
-    addD(scr,40,sp,sd,"blk",null);
-    addD(scr,40,[sp[0],sp[1],-sp[2]],[sd[0],sd[1],-sd[2]],"blk",null);
+    var sd=norm([-0.45,-0.15,0.88]),scr=[[-0.25,0.09],[0.15,0.09],[0.70,0.15],[0.72,0.19],[0.80,0.19],[0.80,0.16],[0.84,0.16],[0.84,0.195],[1.02,0.195],[1.04,0.17],[1.04,0.0]],sp=[0.50,-0.12,0.15];
+    addD(scr,40,sp,sd,"steel",null);
+    addD(scr,40,[sp[0],sp[1],-sp[2]],[sd[0],sd[1],-sd[2]],"steel",null);
     addD([[1.042,0.13],[1.042,0.06],[1.02,0.06],[1.02,0]],24,sp,sd,"dark",null);
     addD([[1.042,0.13],[1.042,0.06],[1.02,0.06],[1.02,0]],24,[sp[0],sp[1],-sp[2]],[sd[0],sd[1],-sd[2]],"dark",null);
     /* entrada de luz: pino curto para baixo, com flange, anel de vedação e ponta oca */
     var dPost=norm([-0.16,-0.99,0]),pPost=[0.66,-0.42,0];
-    addD([[0.00,0.265],[0.30,0.265],[0.30,0.245],[0.32,0.225],[0.36,0.225],[0.36,0.200],[0.48,0.200],[0.48,0.245],[0.56,0.245],[0.56,0.200],[0.62,0.200],[0.62,0.185],[1.03,0.185],[1.03,0.150],[1.05,0.130]],40,pPost,dPost,"blk","luz");
-    addD([[0.48,0.205],[0.56,0.205]],24,pPost,dPost,"dark","luz");
+    addD([[0.00,0.265],[0.30,0.265],[0.30,0.245],[0.32,0.225],[0.36,0.225],[0.36,0.200],[0.48,0.200],[0.48,0.245],[0.56,0.245],[0.56,0.200],[0.62,0.200],[0.62,0.185],[1.03,0.185],[1.03,0.150],[1.05,0.130]],40,pPost,dPost,"steel","luz");
+    addD([[0.48,0.205],[0.48,0.235],[0.56,0.235],[0.56,0.205]],24,pPost,dPost,"rubber","luz");
     addD([[1.05,0.130],[1.05,0.0]],24,pPost,dPost,"dark","luz");
     addD([[1.049,0.07],[1.049,0]],24,pPost,dPost,"emis","luz","xfibre");
     /* tubo da ocular: inclinado para trás, em forma de garrafa; luva mais clara; anel vermelho e capa de borracha */
     var dH=norm([-0.616,-0.788,0]),pH=[-0.70,-0.47,0];
-    addD([[-0.60,0.31],[2.40,0.31]],56,pH,dH,"gun",null);
-    addD([[2.40,0.31],[2.40,0.405],[2.55,0.415],[2.95,0.445],[3.35,0.43],[3.70,0.385]],56,pH,dH,"steel",null);
-    addD([[3.70,0.385],[3.70,0.405],[3.82,0.405],[3.82,0.385]],56,pH,dH,"red","ocular");
-    addD([[3.82,0.385],[3.90,0.46],[4.02,0.62],[4.15,0.78],[4.27,0.87],[4.34,0.90],[4.39,0.85],[4.39,0.30],[4.36,0.27],[4.36,0.20]],64,pH,dH,"rubber","ocular");
-    addD([[4.362,0.27],[4.362,0.15]],40,pH,dH,"steel","ocular");
-    addD([[4.365,0.15],[4.365,0.115],[4.30,0.115],[4.30,0]],32,pH,dH,"glass","window","glass");
+    /* empunhadura: tubo de cima fino até a metade; cone curto; trecho largo e reto; cone que afina; trecho de baixo levemente cônico */
+    addD([[-0.60,0.29],[1.96,0.29],[1.96,0.30],[2.00,0.30]],56,pH,dH,"gun",null);
+    addD([[2.00,0.30],[2.13,0.37],[2.80,0.37],[3.02,0.335],[3.62,0.32],[3.66,0.33],[3.727,0.33]],56,pH,dH,"gun",null);
+    addD([[3.727,0.33],[3.727,0.37],[3.750,0.378],[3.934,0.378],[3.957,0.37],[3.957,0.34]],56,pH,dH,"red","ocular");
+    /* capa: pescoço de borracha, cone e aba larga com borda reta, frente plana */
+    addD([[3.957,0.34],[4.06,0.36],[4.14,0.42],[4.62,0.92],[4.66,0.95],[4.70,0.96],[4.88,0.96],[4.93,0.94],[4.95,0.88],[4.95,0.30],[4.92,0.27],[4.92,0.20]],64,pH,dH,"rubber","ocular");
+    addD([[4.925,0.27],[4.925,0.15]],40,pH,dH,"steel","ocular");
+    addD([[4.929,0.15],[4.929,0.115],[4.854,0.115],[4.854,0]],32,pH,dH,"glass","window","glass");
     /* por dentro: lentes de bastão e fibra de luz */
     for(var q2=0;q2<10;q2++){var x0=2.9+q2*0.95,x1=x0+0.64;
       addD([[x0,0],[x0,0.072],[x0+0.05,0.095],[x1-0.05,0.095],[x1,0.072],[x1,0]],28,[0,yR+0.026,0],X,"glass","lentes","xlens")}
@@ -754,7 +757,7 @@ window.PrimeViewer=function(host,cb){
     /* ---------- pontos de ancoragem (hotspots) e vistas por peça ---------- */
     function A(x,y,z){return[x*K,y*K,z*K]}
     function onH(s,z){return[pH[0]+dH[0]*s,pH[1]+dH[1]*s,z||0]}
-    var cupB=onH(4.39,0),ringB=onH(3.76,0.42);
+    var cupB=onH(4.95,0),ringB=onH(3.842,0.43);
     var ANCHOR={
       objetiva:A(xT,yR,0),
       luz:A(0.56,-1.05,0),
