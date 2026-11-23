@@ -452,6 +452,38 @@ footer a{color:var(--on-black)}
   </div>
 </section>
 
+<section id="cuidados" class="band" style="padding-top:0">
+  <div class="inner split">
+    <div>
+      <div class="kicker">Cuidados</div>
+      <h2 class="sec-title">Cuidados no dia a dia</h2>
+      <p class="sec-lead">O essencial para o seu endoscópio durar mais. O passo a passo completo está no vídeo manual enviado aos nossos clientes.</p>
+    </div>
+    <div class="rows">
+      <div class="row">
+        <h3>Lavagem</h3><span class="tag">Manual</span>
+        <p>Lave à mão, com escovas próprias e sem materiais abrasivos. Evite lavadoras automáticas e ultrassom.</p>
+      </div>
+      <div class="row">
+        <h3>Esterilização</h3><span class="tag">Siga o fabricante</span>
+        <p>Use o método e o ciclo indicados pelo fabricante e evite alternar entre métodos sem a descontaminação adequada.</p>
+      </div>
+      <div class="row">
+        <h3>Transporte</h3><span class="tag">Embalagem original</span>
+        <p>Transporte o endoscópio na embalagem original. O estojo serve para lavagem e esterilização, não para viagem.</p>
+      </div>
+      <div class="row">
+        <h3>Acessórios</h3><span class="tag">Compatíveis</span>
+        <p>Use cânula e instrumentos compatíveis com o canal do endoscópio e confira o estado deles antes de cada uso.</p>
+      </div>
+      <div class="row">
+        <h3>Danos visíveis</h3><span class="tag">Não reprocesse</span>
+        <p>Ao notar um dano, apenas lave o endoscópio e envie para a assistência técnica antes de esterilizar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="qualidade" class="band quality">
   <div class="inner">
     <div class="kicker">Nosso padrão</div>
@@ -471,6 +503,7 @@ footer a{color:var(--on-black)}
     <div class="faq">
       <details open><summary>Quais reparos vocês fazem?</summary><p>Troca de tubo, troca de objetiva, lapidação da fibra de luz, lapidação da distal, troca da eyepiece, substituição da window proximal e substituição de lentes.</p></details>
       <details><summary>As lentes são originais?</summary><p>Sim. Usamos lentes originais compatíveis com os principais fabricantes europeus.</p></details>
+      <details><summary>Posso lavar o endoscópio em lavadora ultrassônica?</summary><p>Não. O fabricante recomenda lavagem manual, sem materiais abrasivos. Os demais cuidados estão no vídeo manual enviado aos nossos clientes.</p></details>
       <details><summary>Como peço um orçamento?</summary><p>Preencha o formulário abaixo, que monta a mensagem para o WhatsApp, ou fale direto pelo telefone +55 (16) 99223-7907 ou pelo e-mail primevideocirurgia@outlook.com.</p></details>
       <details><summary>Vocês fazem consultoria técnica?</summary><p>Sim. A consultoria é sob consulta. Escolha "Consultoria técnica" no formulário de orçamento.</p></details>
       <details><summary>Onde vocês ficam?</summary><p>Rua Odila Rosa Silva Vianna, 615, Bonfim Paulista / Jardim João Pontin, Ribeirão Preto - SP / Brasil, CEP 14110-000.</p></details>
@@ -530,7 +563,7 @@ footer a{color:var(--on-black)}
 
 <footer class="band">
   <div class="inner">
-    <span>Prime Instrumentos de Precisão · Ribeirão Preto - SP / Brasil</span>
+    <span>Prime Instrumentos de Precisão LTDA · CNPJ 10.924.771/0001-29 · Ribeirão Preto - SP / Brasil</span>
     <a href="https://www.instagram.com/primeprecisionrp/" target="_blank" rel="noopener">Instagram @primeprecisionrp</a>
   </div>
 </footer>
@@ -917,6 +950,26 @@ window.PrimeViewer=function(host,cb){
 (function(){
   /* [português, inglês, alemão] */
   var T=[
+    ["Cuidados", "Care", "Pflege"],
+    ["Cuidados no dia a dia", "Everyday care", "Pflege im Alltag"],
+    ["O essencial para o seu endoscópio durar mais. O passo a passo completo está no vídeo manual enviado aos nossos clientes.", "The essentials to help your endoscope last longer. The full step-by-step guide is in the video manual we send to our customers.", "Das Wichtigste für eine lange Lebensdauer Ihres Endoskops. Die vollständige Schritt-für-Schritt-Anleitung finden Sie im Videohandbuch, das wir unseren Kunden zusenden."],
+    ["Lavagem", "Washing", "Reinigung"],
+    ["Manual", "By hand", "Von Hand"],
+    ["Lave à mão, com escovas próprias e sem materiais abrasivos. Evite lavadoras automáticas e ultrassom.", "Wash by hand, with the proper brushes and no abrasive materials. Avoid automatic washers and ultrasound.", "Von Hand mit den passenden Bürsten und ohne scheuernde Materialien reinigen. Automatische Waschmaschinen und Ultraschall vermeiden."],
+    ["Esterilização", "Sterilization", "Sterilisation"],
+    ["Siga o fabricante", "Follow the manufacturer", "Herstellerangaben beachten"],
+    ["Use o método e o ciclo indicados pelo fabricante e evite alternar entre métodos sem a descontaminação adequada.", "Use the method and cycle specified by the manufacturer and avoid switching between methods without proper decontamination.", "Verwenden Sie das vom Hersteller vorgesehene Verfahren und den vorgesehenen Zyklus und wechseln Sie die Verfahren nicht ohne geeignete Dekontamination."],
+    ["Transporte", "Transport", "Transport"],
+    ["Embalagem original", "Original packaging", "Originalverpackung"],
+    ["Transporte o endoscópio na embalagem original. O estojo serve para lavagem e esterilização, não para viagem.", "Transport the endoscope in its original packaging. The case is for washing and sterilization, not for travel.", "Transportieren Sie das Endoskop in der Originalverpackung. Das Etui dient der Reinigung und Sterilisation, nicht dem Transport."],
+    ["Acessórios", "Accessories", "Zubehör"],
+    ["Compatíveis", "Compatible", "Kompatibel"],
+    ["Use cânula e instrumentos compatíveis com o canal do endoscópio e confira o estado deles antes de cada uso.", "Use a cannula and instruments compatible with the endoscope channel and check their condition before every use.", "Verwenden Sie Kanüle und Instrumente, die zum Kanal des Endoskops passen, und prüfen Sie deren Zustand vor jedem Einsatz."],
+    ["Danos visíveis", "Visible damage", "Sichtbare Schäden"],
+    ["Não reprocesse", "Do not reprocess", "Nicht aufbereiten"],
+    ["Ao notar um dano, apenas lave o endoscópio e envie para a assistência técnica antes de esterilizar.", "If you notice damage, only wash the endoscope and send it to technical service before sterilizing.", "Bei einem Schaden das Endoskop nur reinigen und vor der Sterilisation an den technischen Service senden."],
+    ["Posso lavar o endoscópio em lavadora ultrassônica?", "Can I wash the endoscope in an ultrasonic washer?", "Darf ich das Endoskop im Ultraschallbad reinigen?"],
+    ["Não. O fabricante recomenda lavagem manual, sem materiais abrasivos. Os demais cuidados estão no vídeo manual enviado aos nossos clientes.", "No. The manufacturer recommends washing by hand, with no abrasive materials. The other care steps are in the video manual we send to our customers.", "Nein. Der Hersteller empfiehlt die Reinigung von Hand ohne scheuernde Materialien. Die übrigen Pflegehinweise finden Sie im Videohandbuch, das wir unseren Kunden zusenden."],
     ["Endoscópio","Endoscope","Endoskop"],
     ["Serviços","Services","Leistungen"],
     ["Dúvidas","Questions","Fragen"],
@@ -1015,7 +1068,7 @@ window.PrimeViewer=function(host,cb){
     ["Onde vocês ficam?","Where are you located?","Wo befinden Sie sich?"],
     ["Ribeirão Preto - SP / Brasil","Ribeirão Preto - SP / Brazil","Ribeirão Preto - SP / Brasilien"],
     ["Rua Odila Rosa Silva Vianna, 615, Bonfim Paulista / Jardim João Pontin, Ribeirão Preto - SP / Brasil, CEP 14110-000.","Rua Odila Rosa Silva Vianna, 615, Bonfim Paulista / Jardim João Pontin, Ribeirão Preto - SP / Brazil, CEP 14110-000.","Rua Odila Rosa Silva Vianna, 615, Bonfim Paulista / Jardim João Pontin, Ribeirão Preto - SP / Brasilien, CEP 14110-000."],
-    ["Prime Instrumentos de Precisão · Ribeirão Preto - SP / Brasil","Prime Instrumentos de Precisão · Ribeirão Preto - SP / Brazil","Prime Instrumentos de Precisão · Ribeirão Preto - SP / Brasilien"],
+    ["Prime Instrumentos de Precisão LTDA · CNPJ 10.924.771/0001-29 · Ribeirão Preto - SP / Brasil","Prime Instrumentos de Precisão LTDA · CNPJ 10.924.771/0001-29 · Ribeirão Preto - SP / Brazil","Prime Instrumentos de Precisão LTDA · CNPJ 10.924.771/0001-29 · Ribeirão Preto - SP / Brasilien"],
     ["Peça seu orçamento","Request your quote","Fordern Sie Ihr Angebot an"],
     ["Conte qual serviço você precisa e o modelo do equipamento. Montamos a mensagem e você envia pelo WhatsApp.","Tell us which service you need and your equipment model. We build the message and you send it via WhatsApp.","Nennen Sie uns die gewünschte Leistung und das Gerätemodell. Wir erstellen die Nachricht, und Sie senden sie über WhatsApp."],
     ["Telefone e WhatsApp","Phone and WhatsApp","Telefon und WhatsApp"],
