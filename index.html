@@ -125,6 +125,10 @@ section{padding-block:76px}
 .v3d-ui{position:absolute;top:12px;right:12px;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 .v3d-ui button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 14px;font:600 .85rem var(--font-body);cursor:pointer}
 .v3d-ui button[aria-pressed="true"]{background:var(--black);color:var(--on-black);border-color:var(--black)}
+.v3d-help{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;padding:0;list-style:none}
+.v3d-help li{padding:6px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--muted);font-size:.86rem;line-height:1.3}
+.v3d-help .on-m,.v3d-hint .on-m{display:none}
+@media (hover:none),(pointer:coarse){.v3d-help .on-d,.v3d-hint .on-d{display:none}.v3d-help .on-m,.v3d-hint .on-m{display:inline}.v3d-help li.on-m{display:block}}
 .v3d-hint{position:absolute;left:12px;bottom:12px;max-width:calc(100% - 24px);padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--muted);font-size:.78rem;pointer-events:none}
 
 svg.scope{display:block;min-width:700px;width:100%;height:auto}
@@ -201,7 +205,7 @@ textarea{min-height:92px;resize:vertical}
 .out .btn.ghost{color:var(--ink);border-color:var(--ink)}
 .out .btn.ghost:hover{background:var(--bg)}
 
-footer{background:var(--black);color:var(--on-black-muted);padding-block:32px;font-size:.92rem}
+footer{background:var(--black);color:var(--on-black-muted);padding-block:32px 96px;font-size:.92rem}
 footer .inner{display:flex;gap:16px 32px;flex-wrap:wrap;justify-content:space-between;align-items:center}
 footer a{color:var(--on-black)}
 
@@ -328,6 +332,12 @@ footer a{color:var(--on-black)}
     <div class="kicker">Onde atuamos</div>
     <h2 class="sec-title">Clique em uma peça e veja o serviço</h2>
     <p class="sec-lead">Cada parte do endoscópio tem um reparo específico. Escolha a peça com problema e peça o orçamento já com o serviço indicado.</p>
+    <ul class="v3d-help">
+      <li class="on-d">Arraste com o mouse (botão direito ou esquerdo) para girar</li>
+      <li class="on-m">Arraste para girar</li>
+      <li class="on-d">Ctrl + rodinha do mouse para zoom</li>
+      <li class="on-m">Use dois dedos para aproximar e afastar, como numa foto</li>
+    </ul>
 
     <div class="scope-wrap">
       <div class="v3d" id="v3d" hidden>
@@ -337,7 +347,7 @@ footer a{color:var(--on-black)}
           <button type="button" id="v3d-xray" aria-pressed="false">Ver por dentro</button>
           <button type="button" id="v3d-reset">Visão geral</button>
         </div>
-        <div class="v3d-hint">Arraste para girar. Modelo 3D ilustrativo.</div>
+        <div class="v3d-hint"><span class="on-d">Arraste com o botão direito ou esquerdo para girar. Ctrl + rodinha para zoom. Modelo 3D ilustrativo.</span><span class="on-m">Arraste para girar. Use dois dedos para zoom. Modelo 3D ilustrativo.</span></div>
       </div>
       <div class="scope-scroll" id="scope2d">
         <svg class="scope" id="scope" viewBox="0 0 1100 250" role="group" aria-label="Desenho de um endoscópio. Toque em uma peça para ver o serviço.">
@@ -564,7 +574,6 @@ footer a{color:var(--on-black)}
 <footer class="band">
   <div class="inner">
     <span>Prime Instrumentos de Precisão LTDA · CNPJ 10.924.771/0001-29 · Ribeirão Preto - SP / Brasil</span>
-    <a href="https://www.instagram.com/primeprecisionrp/" target="_blank" rel="noopener">Instagram @primeprecisionrp</a>
   </div>
 </footer>
 
@@ -863,7 +872,7 @@ window.PrimeViewer=function(host,cb){
       tgt.yaw-=dx*0.008;cam.yaw-=dx*0.008;tgt.pitch+=dy*0.006;cam.pitch+=dy*0.006;clampPitch();
     });
     function up(e){delete ptrs[e.pointerId];lastPinch=0;if(!Object.keys(ptrs).length)dragging=false}
-    host.addEventListener("pointerup",up);host.addEventListener("pointercancel",up);
+    host.addEventListener("pointerup",up);host.addEventListener("pointercancel",up);host.addEventListener("contextmenu",function(e){e.preventDefault()});
     host.addEventListener("wheel",function(e){if(e.ctrlKey||e.metaKey){e.preventDefault();sway=false;ovMode=false;tgt.dist=Math.max(2.4,Math.min(26,tgt.dist*Math.exp(e.deltaY*0.002)))}},{passive:false});
     canvas.addEventListener("keydown",function(e){
       var k=e.key,h=true;sway=false;ovMode=false;
@@ -950,6 +959,13 @@ window.PrimeViewer=function(host,cb){
 (function(){
   /* [português, inglês, alemão] */
   var T=[
+    ["Arraste com o mouse (botão direito ou esquerdo) para girar", "Drag with the mouse (right or left button) to rotate", "Mit der Maus ziehen (rechte oder linke Taste), um zu drehen"],
+    ["Arraste com o botão direito ou esquerdo para girar. Ctrl + rodinha para zoom. Modelo 3D ilustrativo.", "Drag with the right or left button to rotate. Ctrl + wheel to zoom. Illustrative 3D model.", "Mit der rechten oder linken Maustaste ziehen, um zu drehen. Strg + Mausrad zum Zoomen. Illustratives 3D-Modell."],
+    ["Use dois dedos para aproximar e afastar, como numa foto", "Use two fingers to zoom in and out, like on a photo", "Mit zwei Fingern ein- und auszoomen, wie bei einem Foto"],
+    ["Arraste para girar. Use dois dedos para zoom. Modelo 3D ilustrativo.", "Drag to rotate. Use two fingers to zoom. Illustrative 3D model.", "Zum Drehen ziehen. Mit zwei Fingern zoomen. Illustratives 3D-Modell."],
+    ["Arraste para girar", "Drag to rotate", "Zum Drehen ziehen"],
+    ["Ctrl + rodinha do mouse para zoom", "Ctrl + mouse wheel to zoom", "Strg + Mausrad zum Zoomen"],
+    ["No celular, use dois dedos para zoom", "On a phone, use two fingers to zoom", "Auf dem Handy mit zwei Fingern zoomen"],
     ["Cuidados", "Care", "Pflege"],
     ["Cuidados no dia a dia", "Everyday care", "Pflege im Alltag"],
     ["O essencial para o seu endoscópio durar mais. O passo a passo completo está no vídeo manual enviado aos nossos clientes.", "The essentials to help your endoscope last longer. The full step-by-step guide is in the video manual we send to our customers.", "Das Wichtigste für eine lange Lebensdauer Ihres Endoskops. Die vollständige Schritt-für-Schritt-Anleitung finden Sie im Videohandbuch, das wir unseren Kunden zusenden."],
@@ -980,7 +996,7 @@ window.PrimeViewer=function(host,cb){
     ["Idioma","Language","Sprache"],
     ["Ver por dentro","See inside","Innenansicht"],
     ["Visão geral","Overview","Gesamtansicht"],
-    ["Arraste para girar. Modelo 3D ilustrativo.","Drag to rotate. Illustrative 3D model.","Zum Drehen ziehen. Illustratives 3D-Modell."],
+    ["Arraste para girar. Ctrl + rodinha para zoom. Modelo 3D ilustrativo.","Drag to rotate. Ctrl + wheel to zoom. Illustrative 3D model.","Zum Drehen ziehen. Strg + Mausrad zum Zoomen. Illustratives 3D-Modell."],
     ["Modelo 3D do endoscópio. Arraste para girar.","3D model of the endoscope. Drag to rotate.","3D-Modell des Endoskops. Zum Drehen ziehen."],
     ["Menu","Menu","Menü"],
     ["Tema claro / escuro","Light / dark theme","Helles / dunkles Design"],
@@ -1198,9 +1214,12 @@ window.PrimeViewer=function(host,cb){
   })();
 
   var langBtns=document.querySelectorAll(".lang button");
+  /* no Mac a tecla de zoom é Cmd, não Ctrl */
+  var isMac=/Mac/i.test(navigator.platform||navigator.userAgent||"");
+  function mac(s){return isMac?s.replace(/\b(Ctrl|Strg)\b/g,"Cmd"):s}
   function apply(l){
     lang=l;
-    textNodes.forEach(function(o){o.n.nodeValue=o.pre+tr(o.pt)+o.post});
+    textNodes.forEach(function(o){o.n.nodeValue=o.pre+mac(tr(o.pt))+o.post});
     attrs.forEach(function(o){o.el.setAttribute(o.a,tr(o.pt))});
     Array.prototype.forEach.call(document.querySelectorAll(".stk-i"),function(i){var on=i.dataset.l===l;i.classList.toggle("on",on);i.setAttribute("aria-hidden",on?"false":"true")});
     document.documentElement.lang={pt:"pt-BR",en:"en",de:"de"}[l];
