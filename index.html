@@ -517,7 +517,7 @@ footer a{color:var(--on-black)}
       <details open><summary>Quais reparos vocês fazem?</summary><p>Troca de tubo, troca de objetiva, lapidação da fibra de luz, lapidação da distal, troca da eyepiece, substituição da window proximal e substituição de lentes.</p></details>
       <details><summary>As lentes são originais?</summary><p>Sim. Usamos lentes originais compatíveis com os principais fabricantes europeus.</p></details>
       <details><summary>Posso lavar o endoscópio em lavadora ultrassônica?</summary><p>Não. O fabricante recomenda lavagem manual, sem materiais abrasivos. Os demais cuidados estão no vídeo manual enviado aos nossos clientes.</p></details>
-      <details><summary>Como peço um orçamento?</summary><p>Preencha o formulário abaixo, que monta a mensagem para o WhatsApp, ou fale direto pelo telefone +55 (16) 99223-7907 ou pelo e-mail primevideocirurgia@outlook.com.</p></details>
+      <details><summary>Como peço um orçamento?</summary><p>Preencha o formulário abaixo, que monta a mensagem para o WhatsApp, ou fale direto pelo telefone +55 (16) 99223-7907 ou pelo e-mail comercial@primeprecision.com.br.</p></details>
       <details><summary>Vocês fazem consultoria técnica?</summary><p>Sim. A consultoria é sob consulta. Escolha "Consultoria técnica" no formulário de orçamento.</p></details>
       <details><summary>Onde vocês ficam?</summary><p>Rua Odila Rosa Silva Vianna, 615, Bonfim Paulista / Jardim João Pontin, Ribeirão Preto - SP / Brasil, CEP 14110-000.</p></details>
     </div>
@@ -532,7 +532,7 @@ footer a{color:var(--on-black)}
       <p class="sec-lead">Conte qual serviço você precisa e o modelo do equipamento. Montamos a mensagem e você envia pelo WhatsApp.</p>
       <div class="contact">
         <div><b>Telefone e WhatsApp</b><span class="sel">+55 (16) 99223-7907</span></div>
-        <div><b>E-mail</b><span class="sel">primevideocirurgia@outlook.com</span></div>
+        <div><b>E-mail</b><span class="sel">comercial@primeprecision.com.br</span></div>
         <div><b>Endereço</b>Rua Odila Rosa Silva Vianna, 615<br>Bonfim Paulista / Jardim João Pontin<br>Ribeirão Preto - SP / Brasil<br>CEP 14110-000</div>
         <div><b>Instagram</b><a href="https://www.instagram.com/primeprecisionrp/" target="_blank" rel="noopener">@primeprecisionrp</a></div>
       </div>
@@ -1088,7 +1088,7 @@ window.PrimeViewer=function(host,cb){
     ["As lentes são originais?","Are the lenses original?","Sind die Linsen original?"],
     ["Sim. Usamos lentes originais compatíveis com os principais fabricantes europeus.","Yes. We use original lenses compatible with the main European manufacturers.","Ja. Wir verwenden Originallinsen, die mit den wichtigsten europäischen Herstellern kompatibel sind."],
     ["Como peço um orçamento?","How do I request a quote?","Wie fordere ich ein Angebot an?"],
-    ["Preencha o formulário abaixo, que monta a mensagem para o WhatsApp, ou fale direto pelo telefone +55 (16) 99223-7907 ou pelo e-mail primevideocirurgia@outlook.com.","Fill in the form below, which builds the WhatsApp message, or contact us directly by phone at +55 (16) 99223-7907 or by e-mail at primevideocirurgia@outlook.com.","Füllen Sie das Formular unten aus, das die WhatsApp-Nachricht erstellt, oder kontaktieren Sie uns direkt per Telefon unter +55 (16) 99223-7907 oder per E-Mail an primevideocirurgia@outlook.com."],
+    ["Preencha o formulário abaixo, que monta a mensagem para o WhatsApp, ou fale direto pelo telefone +55 (16) 99223-7907 ou pelo e-mail comercial@primeprecision.com.br.","Fill in the form below, which builds the WhatsApp message, or contact us directly by phone at +55 (16) 99223-7907 or by e-mail at comercial@primeprecision.com.br.","Füllen Sie das Formular unten aus, das die WhatsApp-Nachricht erstellt, oder kontaktieren Sie uns direkt per Telefon unter +55 (16) 99223-7907 oder per E-Mail an comercial@primeprecision.com.br."],
     ["Vocês fazem consultoria técnica?","Do you offer technical consulting?","Bieten Sie technische Beratung an?"],
     ["Sim. A consultoria é sob consulta. Escolha \"Consultoria técnica\" no formulário de orçamento.","Yes. Consulting is available on request. Choose \"Technical consulting\" in the quote form.","Ja. Die Beratung erfolgt auf Anfrage. Wählen Sie im Angebotsformular \"Technische Beratung\"."],
     ["Onde vocês ficam?","Where are you located?","Wo befinden Sie sich?"],
@@ -1318,6 +1318,18 @@ window.PrimeViewer=function(host,cb){
       var nl=(navigator.language||"pt").slice(0,2).toLowerCase();
       if(!br&&(nl==="en"||nl==="de"))start=nl}
   }catch(e){}
+  /* ajusta o tamanho do título para nunca ser cortado, mesmo antes da fonte carregar */
+  function fitH1(){
+    var h=document.querySelector(".hero-copy h1");if(!h)return;
+    h.style.fontSize="";
+    var avail=h.clientWidth,fs=parseFloat(getComputedStyle(h).fontSize),sp=h.querySelectorAll(".stk-i span");
+    function over(){for(var i=0;i<sp.length;i++){if(sp[i].scrollWidth>avail+0.5)return true}return false}
+    while(avail>0&&over()&&fs>18){fs-=1;h.style.fontSize=fs+"px"}
+  }
+  fitH1();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitH1);
+  window.addEventListener("resize",fitH1);
+  window.addEventListener("load",fitH1);
   apply(start);
 })();
 </script>

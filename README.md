@@ -33,3 +33,9 @@ Use uma senha longa (12 caracteres ou mais). A página criptografada é pública
 ## Domínio
 
 Em Project > Settings > Domains, adicione primeprecision.com.br e aplique no DNS do domínio os registros que a Vercel mostrar.
+
+## Segurança
+
+- `vercel.json` envia cabeçalhos de segurança em todas as páginas (CSP, HSTS, X-Frame-Options, nosniff, Referrer-Policy e Permissions-Policy).
+- Se um dia o site carregar algo de outro endereço (novo vídeo, mapa, analytics), inclua esse endereço na `Content-Security-Policy`, senão o navegador bloqueia.
+- Não guarde senhas nem chaves no repositório. A senha do site fica só na variável `SITE_PASSWORD` da Vercel.
