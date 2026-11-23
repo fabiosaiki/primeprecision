@@ -586,9 +586,9 @@ window.PrimeViewer=function(host,cb){
 
     /* ---------- materiais ---------- */
     var MAT={
-      steel:{base:[0.74,0.76,0.79],metal:1,rough:0.12},
-      gun:{base:[0.56,0.57,0.60],metal:1,rough:0.24},blk:{base:[0.10,0.10,0.115],metal:0.7,rough:0.32},
-      bright:{base:[0.80,0.81,0.83],metal:1,rough:0.14},
+      steel:{base:[0.76,0.78,0.81],metal:1,rough:0.10},
+      gun:{base:[0.66,0.67,0.70],metal:1,rough:0.17},blk:{base:[0.10,0.10,0.115],metal:0.7,rough:0.32},
+      bright:{base:[0.66,0.67,0.70],metal:1,rough:0.30},
       dark:{base:[0.30,0.31,0.34],metal:1,rough:0.35},
       rubber:{base:[0.045,0.045,0.05],metal:0,rough:0.70},
       red:{base:[0.80,0.03,0.05],metal:0,rough:0.20},
@@ -608,12 +608,12 @@ window.PrimeViewer=function(host,cb){
        com uma faceta plana de cada lado no alto e um pequeno plano embaixo, onde entra o pino de luz */
     function bodyMesh(){
       var xs=[],nt=360,v=[],fl=[],idx=[],fidx=[],i,j;
-      for(i=0;i<=8;i++)xs.push(-1.82+i*(1.92/8));
-      for(i=1;i<=150;i++)xs.push(0.10+i*(1.87/150));
+      for(i=0;i<=6;i++)xs.push(-1.82+i*(1.32/6));
+      for(i=1;i<=150;i++)xs.push(-0.50+i*(2.47/150));
       var SA=0.41,CA=Math.sqrt(1-SA*SA),DF=0.41,YB=-0.62,RP=-0.1867;
       for(i=0;i<xs.length;i++){var x=xs[i],r=0.35+(1.97-x)*0.1867,c=0.5-r;
         for(j=0;j<=nt;j++){var th=j/nt*2*PI,co=Math.cos(th),si=Math.sin(th),y,z,nn,f=0;
-          if(x<0.3+(0.5-0.5*co)*0.28){y=0.5*co;z=0.5*si;nn=[0,co,si]}
+          if(x<-0.45+0.42*Math.pow(0.5-0.5*co,0.7)){y=0.5*co;z=0.5*si;nn=[0,co,si]}
           else{y=c+r*co;z=r*si;nn=norm([RP*(co-1),co,si]);
             for(var k=0;k<2;k++){var zs=k?-1:1,s=SA*y+zs*CA*z-DF;if(s>0){y-=SA*s;z-=zs*CA*s;nn=[0,SA,zs*CA];f=1}}
             if(y<YB){y=YB;nn=[0,-1,0];f=1}}
@@ -635,14 +635,14 @@ window.PrimeViewer=function(host,cb){
         quad([p[0],p[1],ht],[q[0],q[1],ht],[q[0],q[1],-ht],[p[0],p[1],-ht],nm)}
       return{v:new Float32Array(v),i:new Uint16Array(idx)};
     }
-    var xT=12.4,rR=0.17,yR=0.15; /* ponta da haste, raio da haste, altura do eixo da haste */
+    var xT=14.0,rR=0.22,yR=0.15; /* ponta da haste, raio da haste, altura do eixo da haste */
     /* haste */
     addD([[2.40,rR],[xT-0.3,rR]],56,[0,yR,0],X,"steel","tubo","tube");
     /* ponta: parede grossa, boca cortada na diagonal (o lado das fibras avança mais), furo grande e três furos de fibra */
     (function(){
       var tb=0.30,ny=Math.sqrt(1+tb*tb),fn=[1/ny,tb/ny];
       function xc(y){return xT-(y-(yR-rR))*tb}
-      var hole=[{y:yR+0.022,z:0,r:0.127},{y:yR-0.128,z:-0.071,r:0.019},{y:yR-0.128,z:0,r:0.019},{y:yR-0.128,z:0.071,r:0.019}];
+      var hole=[{y:yR+0.028,z:0,r:0.164},{y:yR-0.166,z:-0.092,r:0.025},{y:yR-0.166,z:0,r:0.025},{y:yR-0.166,z:0.092,r:0.025}];
       var nt=96,v=[],idx=[],i,j,a0;
       for(j=0;j<=nt;j++){var th=j/nt*2*PI,c=Math.cos(th),s=Math.sin(th),y=yR+rR*c;
         v.push((xT-0.3)*K,y*K,rR*s*K,0,c,s,xc(y)*K,y*K,rR*s*K,0,c,s)}
@@ -675,16 +675,16 @@ window.PrimeViewer=function(host,cb){
     /* corpo */
     (function(g){addG(g[0],"gun",null);addG(g[1],"bright",null)})(bodyMesh());
     /* colar da frente, onde entra a haste */
-    addD([[1.95,0.35],[2.50,0.35],[2.58,0.31],[2.58,0.185]],64,[0,0.15,0],X,"gun",null);
-    addD([[2.58,0.185],[2.45,0.185],[2.45,0]],48,[0,0.15,0],X,"dark",null);
+    addD([[1.95,0.35],[2.25,0.345],[2.42,0.325],[2.54,0.285],[2.58,0.255],[2.58,0.235]],64,[0,0.15,0],X,"gun",null);
+    addD([[2.58,0.235],[2.45,0.235],[2.45,0]],48,[0,0.15,0],X,"dark",null);
     /* placa triangular de lados retos entre o cilindro e o tubo da ocular */
-    addG(slab([[-1.36,-0.42],[-0.70,-1.05],[-0.22,-0.42]],0.32),"gun",null);
+    addG(slab([[-1.36,-0.42],[-0.70,-1.05],[-0.02,-0.42]],0.32),"gun",null);
     /* parafusos de borboleta: saem para trás, ao longo do corpo, um de cada lado */
-    var sd=norm([-0.45,-0.15,0.88]),scr=[[-0.25,0.09],[0.15,0.09],[0.70,0.15],[0.72,0.19],[0.80,0.19],[0.80,0.16],[0.84,0.16],[0.84,0.195],[1.02,0.195],[1.04,0.17],[1.04,0.0]],sp=[0.50,-0.12,0.15];
+    var sd=norm([-0.80,-0.15,0.80]),scr=[[-0.25,0.08],[0.30,0.08],[0.85,0.15],[0.87,0.19],[0.95,0.19],[0.95,0.16],[0.99,0.16],[0.99,0.20],[1.17,0.20],[1.19,0.175],[1.19,0.0]],sp=[-0.02,-0.20,0.25];
     addD(scr,40,sp,sd,"steel",null);
     addD(scr,40,[sp[0],sp[1],-sp[2]],[sd[0],sd[1],-sd[2]],"steel",null);
-    addD([[1.042,0.13],[1.042,0.06],[1.02,0.06],[1.02,0]],24,sp,sd,"dark",null);
-    addD([[1.042,0.13],[1.042,0.06],[1.02,0.06],[1.02,0]],24,[sp[0],sp[1],-sp[2]],[sd[0],sd[1],-sd[2]],"dark",null);
+    addD([[1.192,0.13],[1.192,0.06],[1.17,0.06],[1.17,0]],24,sp,sd,"dark",null);
+    addD([[1.192,0.13],[1.192,0.06],[1.17,0.06],[1.17,0]],24,[sp[0],sp[1],-sp[2]],[sd[0],sd[1],-sd[2]],"dark",null);
     /* entrada de luz: pino curto para baixo, com flange, anel de vedação e ponta oca */
     var dPost=norm([-0.16,-0.99,0]),pPost=[0.66,-0.42,0];
     addD([[0.00,0.265],[0.30,0.265],[0.30,0.245],[0.32,0.225],[0.36,0.225],[0.36,0.200],[0.48,0.200],[0.48,0.245],[0.56,0.245],[0.56,0.200],[0.62,0.200],[0.62,0.185],[1.03,0.185],[1.03,0.150],[1.05,0.130]],40,pPost,dPost,"steel","luz");
@@ -702,9 +702,9 @@ window.PrimeViewer=function(host,cb){
     addD([[4.925,0.27],[4.925,0.15]],40,pH,dH,"steel","ocular");
     addD([[4.929,0.15],[4.929,0.115],[4.854,0.115],[4.854,0]],32,pH,dH,"glass","window","glass");
     /* por dentro: lentes de bastão e fibra de luz */
-    for(var q2=0;q2<10;q2++){var x0=2.9+q2*0.95,x1=x0+0.64;
-      addD([[x0,0],[x0,0.072],[x0+0.05,0.095],[x1-0.05,0.095],[x1,0.072],[x1,0]],28,[0,yR+0.026,0],X,"glass","lentes","xlens")}
-    addD([[0.70,0.026],[xT-0.1,0.026]],14,[0,yR-0.125,0],X,"emis","luz","xfibre");
+    for(var q2=0;q2<12;q2++){var x0=2.9+q2*0.95,x1=x0+0.64;
+      addD([[x0,0],[x0,0.095],[x0+0.05,0.125],[x1-0.05,0.125],[x1,0.095],[x1,0]],28,[0,yR+0.03,0],X,"glass","lentes","xlens")}
+    addD([[0.70,0.03],[xT-0.1,0.03]],14,[0,yR-0.165,0],X,"emis","luz","xfibre");
 
     /* ---------- shaders ---------- */
     var VS="attribute vec3 aPos;attribute vec3 aNor;uniform mat4 uVP;uniform mat4 uModel;uniform mat3 uNM;varying vec3 vN;varying vec3 vW;"+
@@ -718,13 +718,16 @@ window.PrimeViewer=function(host,cb){
       "c+=vec3(0.85,0.95,1.2)*smoothstep(0.88,0.97,dot(r,normalize(vec3(0.85,0.35,-0.45))));"+
       "c+=0.7*smoothstep(0.30,0.34,y)*(1.0-smoothstep(0.38,0.42,y))*smoothstep(-0.2,0.5,r.z);"+
       "c+=0.22*smoothstep(-0.9,-0.6,y)*(1.0-smoothstep(-0.6,-0.3,y));"+
+      "c+=0.95*(1.0-smoothstep(0.0,0.07,abs(y-0.58)))+0.55*(1.0-smoothstep(0.0,0.05,abs(y-0.22)));"+
+      "c-=0.30*(1.0-smoothstep(0.0,0.14,abs(y+0.02)));c+=0.45*(1.0-smoothstep(0.0,0.10,abs(r.z-0.75)));"+
       "return c;}\n"+
       "void main(){vec3 N=normalize(vN);vec3 V=normalize(uEye-vW);if(dot(N,V)<0.0)N=-N;"+
       "float ndv=max(dot(N,V),0.0);vec3 R=reflect(-V,N);vec3 Rr=normalize(mix(R,N,uRough));"+
       "float lam=max(dot(N,normalize(vec3(-0.45,0.75,0.5))),0.0);float hemi=0.5+0.5*N.y;"+
       "vec3 diff=uBase*(0.25+0.55*lam+0.25*hemi);vec3 refl=env(Rr);float fres=pow(1.0-ndv,4.0);"+
       "vec3 F0=mix(vec3(0.045),uBase,uMetal);"+
-      "vec3 col=diff*(1.0-uMetal*0.85)+refl*(F0+(1.0-F0)*fres*0.6)*mix(1.0,0.55,uRough);float a=uAlpha;"+
+      "float br=0.93+0.07*fract(sin(floor(vW.y*260.0)*12.9898+floor(vW.z*260.0)*78.233)*43758.5453);"+
+      "vec3 col=(diff*(1.0-uMetal*0.85)+refl*(F0+(1.0-F0)*fres*0.6)*mix(1.0,0.55,uRough))*mix(1.0,br,uMetal);float a=uAlpha;"+
       "if(uGlass>0.5){col=uBase*0.38+refl*(0.18+0.82*fres)+vec3(0.06,0.2,0.26)*(1.0-ndv);a=uAlpha*(0.45+0.55*(fres+0.25));}"+
       "if(uEmis>0.5){float fl=0.72+0.28*sin(vW.x*3.5-uTime*4.0);col=uBase*(1.1*fl)+vec3(0.5,0.25,0.0)*fres;}"+
       "col+=uHL*(0.03+0.38*pow(1.0-ndv,2.6))*vec3(1.0,0.14,0.2)*(0.8+0.2*sin(uTime*3.0));"+
@@ -761,23 +764,23 @@ window.PrimeViewer=function(host,cb){
     var ANCHOR={
       objetiva:A(xT,yR,0),
       luz:A(0.56,-1.05,0),
-      tubo:A(7.4,0.25,0),
-      lentes:A(9.0,yR,0.2),
+      tubo:A(8.2,0.37,0),
+      lentes:A(10.5,yR,0.24),
       window:A(cupB[0],cupB[1],0),
       ocular:A(ringB[0],ringB[1],ringB[2])
     };
     var VIEW={
       objetiva:{t:A(xT-0.3,yR,0),yaw:1.15,pitch:0.14,dist:3.0,xr:0},
       luz:{t:A(0.3,-0.7,0.1),yaw:0.45,pitch:0.14,dist:4.0,xr:1},
-      tubo:{t:A(7.4,0,0),yaw:-0.30,pitch:0.15,dist:6.4,xr:0},
-      lentes:{t:A(7.4,0,0),yaw:-0.25,pitch:0.32,dist:7.6,xr:1},
+      tubo:{t:A(8.2,0,0),yaw:-0.30,pitch:0.15,dist:6.4,xr:0},
+      lentes:{t:A(8.6,0,0),yaw:-0.25,pitch:0.32,dist:7.6,xr:1},
       window:{t:A(cupB[0],cupB[1],0),yaw:-1.2,pitch:-0.55,dist:3.6,xr:0},
       ocular:{t:A(ringB[0]-0.2,ringB[1],0),yaw:0.35,pitch:0.12,dist:3.8,xr:0}
     };
     var FOV=28*PI/180;
     var cssW=1,cssH=1,asp=1;
-    function overviewDist(){var th=Math.tan(FOV/2);return Math.max(16.2/(2*th*asp),5.0/(2*th))}
-    var OV={t:[3.05,-1.55,0],yaw:-0.5,pitch:0.2};
+    function overviewDist(){var th=Math.tan(FOV/2);return Math.max(17.8/(2*th*asp),5.0/(2*th))}
+    var OV={t:[3.7,-1.55,0],yaw:-0.5,pitch:0.2};
     var cam={t:OV.t.slice(),yaw:OV.yaw,pitch:OV.pitch,dist:16};
     var tgt={t:OV.t.slice(),yaw:OV.yaw,pitch:OV.pitch,dist:16};
     var sway=!reduce,ovMode=true,sel="objetiva",xr=0,xrT=0;host.__dbg={cam:cam,tgt:tgt,setSway:function(b){sway=b}};

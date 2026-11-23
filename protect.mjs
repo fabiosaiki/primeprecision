@@ -9,7 +9,11 @@
 import { readFileSync, writeFileSync, mkdirSync, cpSync, rmSync, existsSync } from 'node:fs';
 import { pbkdf2Sync, randomBytes, createCipheriv } from 'node:crypto';
 
-const password = process.env.SITE_PASSWORD || process.argv[2] || '';
+// Chave geral da senha. false = site público, mesmo que SITE_PASSWORD esteja definida na Vercel.
+// Para voltar a pedir senha, troque para true e faça um novo deploy.
+const GATE_ATIVO = false;
+
+const password = GATE_ATIVO ? (process.env.SITE_PASSWORD || process.argv[2] || '') : '';
 const ITER = 300000;
 
 rmSync('dist', { recursive: true, force: true });
@@ -19,7 +23,7 @@ for (const f of ['index.html', 'favicon.svg', 'assets']) {
 }
 
 if (!password) {
-  console.log('SITE_PASSWORD não definida: o site ficará público.');
+  console.log(GATE_ATIVO ? 'SITE_PASSWORD não definida: o site ficará público.' : 'Senha desativada (GATE_ATIVO = false): o site ficará público.');
   process.exit(0);
 }
 

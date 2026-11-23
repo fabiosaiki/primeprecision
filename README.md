@@ -11,6 +11,8 @@ Site estático (HTML, CSS e JS puros) da Prime Precision.
 
 ## Senha de acesso
 
+**Estado atual: desativada.** Em `protect.mjs`, `GATE_ATIVO = false` deixa o site público, mesmo com SITE_PASSWORD definida na Vercel. Para reativar, troque para `true` e faça um novo deploy.
+
 O site pode abrir só com senha. A página é criptografada no deploy (AES-256), e o navegador a abre quando a senha está certa.
 
 1. Na Vercel, abra o projeto e vá em **Settings > Environment Variables**.
