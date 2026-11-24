@@ -56,8 +56,8 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
 .brand{display:flex;flex-direction:column;gap:3px;line-height:1;text-decoration:none}
 .brand img{height:56px;width:auto;display:block}
 .brand{position:relative}
-.brand::after{content:"";position:absolute;left:0;top:0;height:56px;width:183px;pointer-events:none;-webkit-mask:url(assets/logo-light.png) left top/100% 100% no-repeat;mask:url(assets/logo-light.png) left top/100% 100% no-repeat;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.9) 50%,transparent 58%) no-repeat;background-size:260% 100%;background-position:160% 0;animation:logoshine 5.5s ease-in-out 1.2s infinite}
-@keyframes logoshine{0%{background-position:160% 0}35%,100%{background-position:-60% 0}}
+.brand::after{content:"";position:absolute;left:0;top:0;height:56px;width:183px;pointer-events:none;-webkit-mask:url(assets/logo-light.png) left top/100% 100% no-repeat;mask:url(assets/logo-light.png) left top/100% 100% no-repeat;background:linear-gradient(105deg,transparent 28%,rgba(255,255,255,.14) 40%,rgba(255,255,255,.42) 50%,rgba(255,255,255,.14) 60%,transparent 72%) no-repeat;background-size:320% 100%;background-position:170% 0;animation:logoshine 8s cubic-bezier(.45,.05,.55,.95) 1.5s infinite}
+@keyframes logoshine{0%{background-position:170% 0}45%,100%{background-position:-70% 0}}
 @media (prefers-reduced-motion:reduce){.brand::after{animation:none;display:none}}
 .brand img.logo-d{display:none}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .brand img.logo-l{display:none}:root:not([data-theme="light"]) .brand img.logo-d{display:block}}
