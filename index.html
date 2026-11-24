@@ -284,7 +284,7 @@ footer a{color:var(--on-black)}
       <img class="logo-d" src="assets/logo-dark.png" alt="" aria-hidden="true" width="190" height="54">
     </a>
     <nav aria-label="Principal">
-      <a class="hide" href="#quem-somos">Quem somos</a>
+      <a class="hide" href="/quem-somos">Quem somos</a>
       <a class="hide" href="#endoscopio">Endoscópio</a>
       <a class="hide" href="#servicos">Serviços</a>
       <a class="hide" href="#faq">Dúvidas</a>
@@ -300,7 +300,7 @@ footer a{color:var(--on-black)}
     </nav>
   </div>
   <div class="inner menu" id="menu" hidden>
-    <a href="#quem-somos">Quem somos</a>
+    <a href="/quem-somos">Quem somos</a>
     <a href="#endoscopio">Endoscópio</a>
     <a href="#servicos">Serviços</a>
     <a href="#faq">Dúvidas</a>
@@ -342,22 +342,6 @@ footer a{color:var(--on-black)}
     <span aria-hidden="true">Ribeirão Preto/SP</span>
   </div>
 </div>
-
-<section id="quem-somos" class="band" style="padding-top:0">
-  <div class="inner split">
-    <div>
-      <div class="kicker">Quem somos</div>
-      <h2 class="sec-title" style="font-size:clamp(1.9rem,3.6vw,2.7rem)">Nossa história: um legado que passa de pai para filho</h2>
-      <p class="sec-lead">Da bancada familiar aos centros de excelência técnica na Alemanha: a Prime Precision une legado geracional, protocolos rigorosos de engenharia e tecnologia de ponta para transformar o futuro dos testes, da medição e da óptica de alta precisão.</p>
-    </div>
-    <div>
-      <p>A trajetória da Prime Precision é construída sobre o conhecimento técnico transmitido de geração em geração, aliado à busca incessante pelos mais altos padrões internacionais de qualidade.</p>
-      <p style="margin-top:14px">Tudo começou com os ensinamentos e o legado de Walter, pai de Gustavo, sócio-fundador da empresa, que transmitiu na prática os fundamentos da especialização e da manutenção de instrumentos de alta precisão. Como segunda geração de especialistas, Gustavo levou essa base sólida ainda mais longe, aprofundando seus princípios e estudos na Alemanha, berço mundial da engenharia de precisão e da óptica fina.</p>
-      <p style="margin-top:14px">Foi na Alemanha que Gustavo consolidou a cultura de engenharia estruturada e de protocolos técnicos rigorosos, trazendo para o Brasil metodologias de diagnóstico, montagem e aferição que definem o padrão Prime Precision.</p>
-      <p style="margin-top:14px">Hoje, esse DNA de excelência avança rumo à terceira geração, com seu filho Lucas, projetando nossa técnica no futuro e garantindo que a inovação contínua mantenha nossa engenharia sempre à frente.</p>
-    </div>
-  </div>
-</section>
 
 <section id="endoscopio" class="band">
   <div class="inner">
@@ -886,13 +870,14 @@ window.PrimeViewer=function(host,cb){
 (function(){
   /* [português, inglês, alemão] */
   var T=[
+    ["Quer conversar sobre a manutenção do seu endoscópio?","Want to talk about maintaining your endoscope?","Möchten Sie über die Wartung Ihres Endoskops sprechen?"],
     ["Quem somos","About us","Über uns"],
     ["Nossa história: um legado que passa de pai para filho","Our story: a legacy passed from father to son","Unsere Geschichte: ein Erbe, das vom Vater an den Sohn weitergegeben wird"],
     ["Da bancada familiar aos centros de excelência técnica na Alemanha: a Prime Precision une legado geracional, protocolos rigorosos de engenharia e tecnologia de ponta para transformar o futuro dos testes, da medição e da óptica de alta precisão.","From the family workbench to centers of technical excellence in Germany: Prime Precision combines generational legacy, rigorous engineering protocols and cutting-edge technology to shape the future of testing, measurement and high-precision optics.","Von der Familienwerkbank zu den Zentren technischer Exzellenz in Deutschland: Prime Precision verbindet generationenübergreifendes Erbe, strenge Engineering-Protokolle und Spitzentechnologie, um die Zukunft von Prüfung, Messung und hochpräziser Optik mitzugestalten."],
     ["A trajetória da Prime Precision é construída sobre o conhecimento técnico transmitido de geração em geração, aliado à busca incessante pelos mais altos padrões internacionais de qualidade.","Prime Precision's journey is built on technical knowledge passed down from generation to generation, combined with a relentless pursuit of the highest international quality standards.","Der Weg von Prime Precision beruht auf technischem Wissen, das von Generation zu Generation weitergegeben wird, verbunden mit dem unermüdlichen Streben nach den höchsten internationalen Qualitätsstandards."],
-    ["Tudo começou com os ensinamentos e o legado de Walter, pai de Gustavo, sócio-fundador da empresa, que transmitiu na prática os fundamentos da especialização e da manutenção de instrumentos de alta precisão. Como segunda geração de especialistas, Gustavo levou essa base sólida ainda mais longe, aprofundando seus princípios e estudos na Alemanha, berço mundial da engenharia de precisão e da óptica fina.","It all began with the teachings and legacy of Walter, father of Gustavo, the company's founding partner, who passed on in practice the fundamentals of specialization and the maintenance of high-precision instruments. As the second generation of specialists, Gustavo took that solid foundation even further, deepening his principles and studies in Germany, the world's cradle of precision engineering and fine optics.","Alles begann mit den Lehren und dem Erbe von Walter, dem Vater von Gustavo, dem Mitgründer des Unternehmens, der in der Praxis die Grundlagen der Spezialisierung und der Wartung hochpräziser Instrumente weitergab. Als zweite Generation von Spezialisten führte Gustavo diese solide Basis noch weiter, indem er seine Grundsätze und Studien in Deutschland vertiefte, der Wiege der Präzisionstechnik und der Feinoptik."],
-    ["Foi na Alemanha que Gustavo consolidou a cultura de engenharia estruturada e de protocolos técnicos rigorosos, trazendo para o Brasil metodologias de diagnóstico, montagem e aferição que definem o padrão Prime Precision.","It was in Germany that Gustavo consolidated a culture of structured engineering and rigorous technical protocols, bringing to Brazil the diagnosis, assembly and calibration methodologies that define the Prime Precision standard.","In Deutschland festigte Gustavo die Kultur strukturierter Ingenieurarbeit und strenger technischer Protokolle und brachte Methoden für Diagnose, Montage und Kalibrierung nach Brasilien, die den Standard von Prime Precision prägen."],
-    ["Hoje, esse DNA de excelência avança rumo à terceira geração, com seu filho Lucas, projetando nossa técnica no futuro e garantindo que a inovação contínua mantenha nossa engenharia sempre à frente.","Today, this DNA of excellence moves toward the third generation, with his son Lucas, projecting our technique into the future and ensuring that continuous innovation keeps our engineering always ahead.","Heute geht diese DNA der Exzellenz mit seinem Sohn Lucas in die dritte Generation, trägt unser Können in die Zukunft und sorgt dafür, dass kontinuierliche Innovation unsere Technik stets voranbringt."],
+    ["Tudo começou com os ensinamentos de Walter, pai de Gustavo (sócio-fundador da empresa), que transmitiu na prática os fundamentos da especialização e da manutenção de instrumentos de alta precisão. Como segunda geração de especialistas, Gustavo levou essa base sólida ainda mais longe ao aprofundar seus princípios e estudos na Alemanha — berço mundial da engenharia de precisão e da óptica fina.","It all began with the teachings of Walter, father of Gustavo (the company's founding partner), who passed on in practice the fundamentals of specialization and the maintenance of high-precision instruments. As the second generation of specialists, Gustavo took that solid foundation even further by deepening his principles and studies in Germany — the world's cradle of precision engineering and fine optics.","Alles begann mit den Lehren von Walter, dem Vater von Gustavo (Mitgründer des Unternehmens), der in der Praxis die Grundlagen der Spezialisierung und der Wartung hochpräziser Instrumente weitergab. Als zweite Generation von Spezialisten führte Gustavo diese solide Basis noch weiter, indem er seine Grundsätze und Studien in Deutschland vertiefte — der Wiege der Präzisionstechnik und der Feinoptik."],
+    ["Foi na Alemanha que Gustavo consolidou a cultura de engenharia estruturada e protocolos técnicos rigorosos, trazendo para o Brasil metodologias de diagnóstico, montagem e aferição que definem o padrão Prime Precision.","It was in Germany that Gustavo consolidated a culture of structured engineering and rigorous technical protocols, bringing to Brazil the diagnosis, assembly and calibration methodologies that define the Prime Precision standard.","In Deutschland festigte Gustavo die Kultur strukturierter Ingenieurarbeit und strenger technischer Protokolle und brachte Methoden für Diagnose, Montage und Kalibrierung nach Brasilien, die den Standard von Prime Precision prägen."],
+    ["Hoje, esse DNA de excelência avança rumo à terceira geração com seu filho Lucas, projetando nossa técnica no futuro e garantindo que a inovação contínua mantenha nossa engenharia sempre à frente do mercado e inovação.","Today, this DNA of excellence moves toward the third generation with his son Lucas, projecting our technique into the future and ensuring that continuous innovation keeps our engineering always ahead of the market and innovation.","Heute geht diese DNA der Exzellenz mit seinem Sohn Lucas in die dritte Generation, trägt unser Können in die Zukunft und sorgt dafür, dass kontinuierliche Innovation unsere Technik stets dem Markt und der Innovation voraus hält."],
     ["Dúvidas / outros","Questions / other","Fragen / Sonstiges"],
     ["Nome completo", "Full name", "Vollständiger Name"],
     ["Ex.: nome e sobrenome", "E.g. first and last name", "z. B. Vor- und Nachname"],
