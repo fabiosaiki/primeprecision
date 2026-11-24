@@ -55,15 +55,9 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
 .bar{display:flex;align-items:center;gap:20px;min-height:68px;flex-wrap:wrap;padding-block:8px}
 .brand{display:flex;flex-direction:column;gap:3px;line-height:1;text-decoration:none}
 .brand img{height:56px;width:auto;display:block}
-.find{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:24px;margin-top:48px;align-items:stretch}
-.map{display:flex;flex-direction:column;gap:10px;min-width:0}
-.map iframe{width:100%;min-height:340px;flex:1;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.map{display:flex;flex-direction:column;gap:10px;min-width:0;margin-top:4px}
+.map iframe{width:100%;height:280px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
 .maplink{align-self:flex-start;color:var(--red-ink);text-underline-offset:3px}
-.insta{display:flex;align-items:center;gap:16px;padding:22px;border:1px solid var(--line);border-radius:12px;background:var(--surface);text-decoration:none;color:inherit;align-self:start}
-.insta img{border-radius:50%;background:#000;object-fit:contain;width:64px;height:64px}
-.insta b{display:block}.insta small{display:block;color:var(--muted);margin-top:2px}
-.insta:hover{border-color:var(--red)}
-@media (max-width:860px){.find{grid-template-columns:minmax(0,1fr)}}
 .brand{position:relative}
 .brand::after{content:"";position:absolute;left:0;top:0;height:56px;width:183px;pointer-events:none;-webkit-mask:url(assets/logo-light.png) left top/100% 100% no-repeat;mask:url(assets/logo-light.png) left top/100% 100% no-repeat;background:linear-gradient(105deg,transparent 28%,rgba(255,255,255,.14) 40%,rgba(255,255,255,.42) 50%,rgba(255,255,255,.14) 60%,transparent 72%) no-repeat;background-size:320% 100%;background-position:170% 0;animation:logoshine 8s cubic-bezier(.45,.05,.55,.95) 1.5s infinite}
 @keyframes logoshine{0%{background-position:170% 0}45%,100%{background-position:-70% 0}}
@@ -563,6 +557,10 @@ footer a{color:var(--on-black)}
         <div><b>Telefone e WhatsApp</b><span class="sel">+55 (16) 99223-7907</span></div>
         <div><b>E-mail</b><span class="sel">comercial@primeprecision.com.br</span></div>
         <div><b>Endereço</b>Rua Odila Rosa Silva Vianna, 615<br>Bonfim Paulista / Jardim João Pontin<br>Ribeirão Preto - SP / Brasil<br>CEP 14110-000</div>
+        <div class="map">
+        <iframe src="https://www.google.com/maps?q=Rua+Odila+Rosa+Silva+Vianna,+615,+Ribeir%C3%A3o+Preto,+SP&output=embed" title="Mapa com a localização da Prime Precision em Ribeirão Preto" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Rua+Odila+Rosa+Silva+Vianna,+615,+Ribeir%C3%A3o+Preto,+SP" target="_blank" rel="noopener">Abrir no Google Maps</a>
+      </div>
         <div><b>Instagram</b><a href="https://www.instagram.com/primeprecisionrp/" target="_blank" rel="noopener">@primeprecisionrp</a></div>
         <div><b>LinkedIn</b><a href="https://www.linkedin.com/company/prime-instrumentos-de-precis%C3%A3o/" target="_blank" rel="noopener">Prime Instrumentos de Precisão</a></div>
       </div>
@@ -608,16 +606,6 @@ footer a{color:var(--on-black)}
       </div>
     </form>
   </div>
-    <div class="find">
-      <div class="map">
-        <iframe src="https://www.google.com/maps?q=Rua+Odila+Rosa+Silva+Vianna,+615,+Ribeir%C3%A3o+Preto,+SP&output=embed" title="Mapa com a localização da Prime Precision em Ribeirão Preto" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-        <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Rua+Odila+Rosa+Silva+Vianna,+615,+Ribeir%C3%A3o+Preto,+SP" target="_blank" rel="noopener">Abrir no Google Maps</a>
-      </div>
-      <a class="insta" href="https://www.instagram.com/primeprecisionrp/" target="_blank" rel="noopener">
-        <img src="assets/logo-light.png" alt="" width="64" height="64" loading="lazy">
-        <span><b>Siga a Prime Precision no Instagram</b><small>@primeprecisionrp</small></span>
-      </a>
-    </div>
 </section>
 </main>
 
