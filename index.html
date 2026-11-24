@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <title>Manutenção de Endoscópios em Ribeirão Preto/SP | Prime Precision</title>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LocalBusiness", "@id": "https://primeprecision.com.br/#empresa", "name": "Prime Precision", "legalName": "Prime Instrumentos de Precisão LTDA", "description": "Manutenção especializada e preventiva de endoscópios e instrumentos de precisão em Ribeirão Preto/SP: troca de tubo, objetiva e lentes, lapidação de fibra de luz e distal.", "url": "https://primeprecision.com.br/", "logo": "https://primeprecision.com.br/assets/logo-light.png", "image": "https://primeprecision.com.br/assets/hero.jpg", "telephone": "+55 16 99223-7907", "email": "comercial@primeprecision.com.br", "taxID": "10.924.771/0001-29", "address": {"@type": "PostalAddress", "streetAddress": "Rua Odila Rosa Silva Vianna, 615, Bonfim Paulista / Jardim João Pontin", "addressLocality": "Ribeirão Preto", "addressRegion": "SP", "postalCode": "14110-000", "addressCountry": "BR"}, "areaServed": {"@type": "Country", "name": "Brasil"}, "sameAs": ["https://www.instagram.com/primeprecisionrp"], "knowsAbout": ["Manutenção de endoscópios", "Manutenção preventiva", "Instrumentos de precisão", "Reparo de endoscópio rígido", "Lapidação de fibra de luz"], "makesOffer": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Manutenção em endoscópios"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Consultoria técnica / curso"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Equipamentos de teste"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Instrumentos de medição"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Acessórios especializados"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LocalBusiness", "@id": "https://primeprecision.com.br/#empresa", "name": "Prime Precision", "legalName": "Prime Instrumentos de Precisão LTDA", "description": "Manutenção especializada e preventiva de endoscópios e instrumentos de precisão em Ribeirão Preto/SP: troca de tubo, objetiva e lentes, lapidação de fibra de luz e distal.", "url": "https://primeprecision.com.br/", "logo": "https://primeprecision.com.br/assets/logo-light.png", "image": "https://primeprecision.com.br/assets/hero.jpg", "telephone": "+55 16 99223-7907", "email": "comercial@primeprecision.com.br", "taxID": "10.924.771/0001-29", "address": {"@type": "PostalAddress", "streetAddress": "Rua Odila Rosa Silva Vianna, 615, Bonfim Paulista / Jardim João Pontin", "addressLocality": "Ribeirão Preto", "addressRegion": "SP", "postalCode": "14110-000", "addressCountry": "BR"}, "areaServed": {"@type": "Country", "name": "Brasil"}, "sameAs": ["https://www.instagram.com/primeprecisionrp", "https://www.linkedin.com/company/prime-instrumentos-de-precis%C3%A3o/"], "hasMap": "https://www.google.com/maps/search/?api=1&query=Rua+Odila+Rosa+Silva+Vianna,+615,+Ribeir%C3%A3o+Preto,+SP", "knowsAbout": ["Manutenção de endoscópios", "Manutenção preventiva", "Instrumentos de precisão", "Reparo de endoscópio rígido", "Lapidação de fibra de luz"], "makesOffer": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Manutenção em endoscópios"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Consultoria técnica / curso"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Equipamentos de teste"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Instrumentos de medição"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Acessórios especializados"}}]}</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap">
 <style>
 body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{color-scheme:light}
@@ -55,6 +55,15 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
 .bar{display:flex;align-items:center;gap:20px;min-height:68px;flex-wrap:wrap;padding-block:8px}
 .brand{display:flex;flex-direction:column;gap:3px;line-height:1;text-decoration:none}
 .brand img{height:56px;width:auto;display:block}
+.find{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:24px;margin-top:48px;align-items:stretch}
+.map{display:flex;flex-direction:column;gap:10px;min-width:0}
+.map iframe{width:100%;min-height:340px;flex:1;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.maplink{align-self:flex-start;color:var(--red-ink);text-underline-offset:3px}
+.insta{display:flex;align-items:center;gap:16px;padding:22px;border:1px solid var(--line);border-radius:12px;background:var(--surface);text-decoration:none;color:inherit;align-self:start}
+.insta img{border-radius:50%;background:#000;object-fit:contain;width:64px;height:64px}
+.insta b{display:block}.insta small{display:block;color:var(--muted);margin-top:2px}
+.insta:hover{border-color:var(--red)}
+@media (max-width:860px){.find{grid-template-columns:minmax(0,1fr)}}
 .brand{position:relative}
 .brand::after{content:"";position:absolute;left:0;top:0;height:56px;width:183px;pointer-events:none;-webkit-mask:url(assets/logo-light.png) left top/100% 100% no-repeat;mask:url(assets/logo-light.png) left top/100% 100% no-repeat;background:linear-gradient(105deg,transparent 28%,rgba(255,255,255,.14) 40%,rgba(255,255,255,.42) 50%,rgba(255,255,255,.14) 60%,transparent 72%) no-repeat;background-size:320% 100%;background-position:170% 0;animation:logoshine 8s cubic-bezier(.45,.05,.55,.95) 1.5s infinite}
 @keyframes logoshine{0%{background-position:170% 0}45%,100%{background-position:-70% 0}}
@@ -555,6 +564,7 @@ footer a{color:var(--on-black)}
         <div><b>E-mail</b><span class="sel">comercial@primeprecision.com.br</span></div>
         <div><b>Endereço</b>Rua Odila Rosa Silva Vianna, 615<br>Bonfim Paulista / Jardim João Pontin<br>Ribeirão Preto - SP / Brasil<br>CEP 14110-000</div>
         <div><b>Instagram</b><a href="https://www.instagram.com/primeprecisionrp/" target="_blank" rel="noopener">@primeprecisionrp</a></div>
+        <div><b>LinkedIn</b><a href="https://www.linkedin.com/company/prime-instrumentos-de-precis%C3%A3o/" target="_blank" rel="noopener">Prime Instrumentos de Precisão</a></div>
       </div>
     </div>
     <form id="form" novalidate>
@@ -598,6 +608,16 @@ footer a{color:var(--on-black)}
       </div>
     </form>
   </div>
+    <div class="find">
+      <div class="map">
+        <iframe src="https://www.google.com/maps?q=Rua+Odila+Rosa+Silva+Vianna,+615,+Ribeir%C3%A3o+Preto,+SP&output=embed" title="Mapa com a localização da Prime Precision em Ribeirão Preto" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Rua+Odila+Rosa+Silva+Vianna,+615,+Ribeir%C3%A3o+Preto,+SP" target="_blank" rel="noopener">Abrir no Google Maps</a>
+      </div>
+      <a class="insta" href="https://www.instagram.com/primeprecisionrp/" target="_blank" rel="noopener">
+        <img src="assets/logo-light.png" alt="" width="64" height="64" loading="lazy">
+        <span><b>Siga a Prime Precision no Instagram</b><small>@primeprecisionrp</small></span>
+      </a>
+    </div>
 </section>
 </main>
 
@@ -877,6 +897,9 @@ window.PrimeViewer=function(host,cb){
 (function(){
   /* [português, inglês, alemão] */
   var T=[
+    ["Mapa com a localização da Prime Precision em Ribeirão Preto","Map showing the location of Prime Precision in Ribeirão Preto","Karte mit dem Standort von Prime Precision in Ribeirão Preto"],
+    ["Abrir no Google Maps","Open in Google Maps","In Google Maps öffnen"],
+    ["Siga a Prime Precision no Instagram","Follow Prime Precision on Instagram","Folgen Sie Prime Precision auf Instagram"],
     ["Quer conversar sobre a manutenção do seu endoscópio?","Want to talk about maintaining your endoscope?","Möchten Sie über die Wartung Ihres Endoskops sprechen?"],
     ["Quem somos","About us","Über uns"],
     ["Nossa história: um legado que passa de pai para filho","Our story: a legacy passed from father to son","Unsere Geschichte: ein Erbe, das vom Vater an den Sohn weitergegeben wird"],
