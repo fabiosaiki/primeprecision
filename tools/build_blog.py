@@ -100,7 +100,7 @@ def build(home, posts, mode, root):
         p = re.sub(r'href="(#blog|/blog|blog/index\.html|\.\./blog/index\.html|index\.html)"(?=[^>]*>Blog<)',
                    'href="%s"%s' % (BLOG, ' aria-current="page"' if cur_blog else ''), p)
         if mode == 'site':
-            p = p.replace('src="assets/', 'src="/assets/').replace('href="favicon.svg"', 'href="/favicon.svg"')
+            p = p.replace('src="assets/', 'src="/assets/').replace('url(assets/', 'url(/assets/').replace('href="favicon.svg"', 'href="/favicon.svg"')
         return p
     def head(p, title, desc, url, typ='website', extra=''):
         p = re.sub(r'<title>.*?</title>', lambda m: '<title>%s</title>' % esc(title), p, count=1, flags=re.S)

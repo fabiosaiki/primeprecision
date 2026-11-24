@@ -55,6 +55,10 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
 .bar{display:flex;align-items:center;gap:20px;min-height:68px;flex-wrap:wrap;padding-block:8px}
 .brand{display:flex;flex-direction:column;gap:3px;line-height:1;text-decoration:none}
 .brand img{height:56px;width:auto;display:block}
+.brand{position:relative}
+.brand::after{content:"";position:absolute;left:0;top:0;height:56px;width:183px;pointer-events:none;-webkit-mask:url(/assets/logo-light.png) left top/100% 100% no-repeat;mask:url(/assets/logo-light.png) left top/100% 100% no-repeat;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.9) 50%,transparent 58%) no-repeat;background-size:260% 100%;background-position:160% 0;animation:logoshine 5.5s ease-in-out 1.2s infinite}
+@keyframes logoshine{0%{background-position:160% 0}35%,100%{background-position:-60% 0}}
+@media (prefers-reduced-motion:reduce){.brand::after{animation:none;display:none}}
 .brand img.logo-d{display:none}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .brand img.logo-l{display:none}:root:not([data-theme="light"]) .brand img.logo-d{display:block}}
 :root[data-theme="dark"] .brand img.logo-l{display:none}:root[data-theme="dark"] .brand img.logo-d{display:block}
@@ -261,6 +265,7 @@ footer a{color:var(--on-black)}
 }
 @media (max-width:520px){
   .brand img{height:44px}
+  .brand::after{height:44px;width:144px}
   .row{grid-template-columns:minmax(0,1fr)}
   .row .tag{grid-column:1;justify-self:start}
   .steps{grid-template-columns:minmax(0,1fr)}
@@ -304,8 +309,8 @@ footer a{color:var(--on-black)}
 <header class="band">
   <div class="inner bar">
     <a class="brand" href="/" aria-label="Prime Endoscope science vision, início">
-      <img class="logo-l" src="/assets/logo-light.png" alt="Prime" width="190" height="54">
-      <img class="logo-d" src="/assets/logo-dark.png" alt="" aria-hidden="true" width="190" height="54">
+      <img class="logo-l" src="/assets/logo-light.png" alt="Prime" width="183" height="56">
+      <img class="logo-d" src="/assets/logo-dark.png" alt="" aria-hidden="true" width="183" height="56">
     </a>
     <nav aria-label="Principal">
       <a class="hide" href="/quem-somos">Quem somos</a>
