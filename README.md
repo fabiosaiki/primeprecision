@@ -5,7 +5,8 @@ Site estático (HTML, CSS e JS puros) da Prime Precision.
 ## Estrutura
 
 - `index.html`: página inteira
-- `assets/logo.png`: logo com fundo transparente
+- `assets/logo.png`: logo com fundo transparente (usado só na tela de senha)
+- `assets/logo-light.png` e `assets/logo-dark.png`: logo com slogan (preto no tema claro, branco no escuro)
 - `assets/hero.jpg`: foto do topo
 - `favicon.svg`
 
