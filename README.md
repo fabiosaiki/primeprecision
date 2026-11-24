@@ -40,3 +40,12 @@ Em Project > Settings > Domains, adicione primeprecision.com.br e aplique no DNS
 - `vercel.json` envia cabeçalhos de segurança em todas as páginas (CSP, HSTS, X-Frame-Options, nosniff, Referrer-Policy e Permissions-Policy).
 - Se um dia o site carregar algo de outro endereço (novo vídeo, mapa, analytics), inclua esse endereço na `Content-Security-Policy`, senão o navegador bloqueia.
 - Não guarde senhas nem chaves no repositório. A senha do site fica só na variável `SITE_PASSWORD` da Vercel.
+
+## Blog
+
+Os posts ficam em `content/blog/AAAA-MM-DD-slug.md` (formato explicado no topo de `tools/build_blog.py`).
+Depois de adicionar ou editar um post, rode na raiz do projeto:
+
+    python3 tools/build_blog.py
+
+Isso gera `blog/`, `sitemap.xml` e `feed.xml`. Posts com data futura só entram no site quando o comando rodar na data ou depois dela.

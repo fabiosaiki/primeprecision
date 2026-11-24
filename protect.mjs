@@ -18,7 +18,7 @@ const ITER = 300000;
 
 rmSync('dist', { recursive: true, force: true });
 mkdirSync('dist', { recursive: true });
-for (const f of ['index.html', 'quem-somos.html', 'favicon.svg', 'robots.txt', 'sitemap.xml', 'assets']) {
+for (const f of ['index.html', 'quem-somos.html', 'favicon.svg', 'robots.txt', 'sitemap.xml', 'feed.xml', 'blog', 'assets']) {
   if (existsSync(f)) cpSync(f, 'dist/' + f, { recursive: true });
 }
 
